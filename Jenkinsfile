@@ -5,8 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Iniciando Build...'
-                cp ./RENAPSys /var/www/html/RENAPSys/build
-
+                script{
+                    cp ./RENAPSys /var/www/html/RENAPSys/build
+                }
             }
         }
         stage('Test') {
