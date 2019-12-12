@@ -5,8 +5,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Iniciando Build...'
-                cd ./RENAPSys
-                composer install
+                cp ./RENAPSys /var/www/html/RENAPSys/build
+                sh 'cd /var/www/html/RENAPSys/build'
+                sh 'composer install'
 
             }
         }
