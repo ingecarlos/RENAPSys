@@ -18,6 +18,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Despliegue...'
+                sh 'cp ./RENAPSys /var/www/html/RENAPSys'
+                sh 'php /var/www/html/RENAPSys/artisan serve --host 0.0.0.0 --port 9000'
             }
         }
     }
