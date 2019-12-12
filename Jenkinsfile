@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                cp -r ./RENAPSys /var/www/html/RENAPSys
                 echo 'Iniciando Build...'
             }
         }
