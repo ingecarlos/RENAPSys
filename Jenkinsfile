@@ -20,7 +20,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Despliegue...'
-                sh ' cp -r ./RENAPSys /var/www/html/ '
             }
         }
     }
