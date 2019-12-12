@@ -6,8 +6,6 @@ pipeline {
             steps {
                 echo 'Iniciando Build...'
                 cp ./RENAPSys /var/www/html/RENAPSys/build
-                sh 'cd /var/www/html/RENAPSys/build'
-                sh 'composer install'
 
             }
         }
