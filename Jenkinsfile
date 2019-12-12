@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                ls ./RENAPSys
+                sh 'ls ./RENAPSys'
+                sh 'cp ./RENAPSys /var/www/html/RENAPSys'
                 echo 'Iniciando Build...'
             }
         }
