@@ -20,7 +20,7 @@ pipeline {
                 echo 'Despliegue...'
                 sh 'rm -r /var/www/html/RENAPSys'
                 sh 'cp -r ./RENAPSys /var/www/html/'
-                
+                sh 'kill $(lsof -t -i:9000)'
                 sh 'php /var/www/html/RENAPSys/artisan serve --host 0.0.0.0 --port 9000'
             }
         }
