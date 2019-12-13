@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    RENAPSys con cambios
+                    RENAPSys quitar cambios
                 </div>
 
                 <div class="links">
