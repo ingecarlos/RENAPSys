@@ -20,7 +20,7 @@ pipeline {
                 echo 'Despliegue...'
                 sh 'rm -r /var/www/html/RENAPSys'
                 sh 'cp -r ./RENAPSys /var/www/html/'
-                sh 'if [ $(lsof -t -i:9000) != "" ]; then  kill $(lsof -t -i:9000); else echo "vacio"; fi'
+                sh 'if [ $(lsof -t -i:9000) != "" ]; then nohup kill $(lsof -t -i:9000); else echo "vacio"; fi'
                 sh 'php /var/www/html/RENAPSys/artisan serve --host 0.0.0.0 --port 9000 &'
             }
         }
