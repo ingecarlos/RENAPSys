@@ -7,14 +7,12 @@ pipeline {
                 echo 'Iniciando Build...'
                 sh 'composer install -d ./RENAPSys'
                 sh 'php ./RENAPSys/artisan key:generate'
-
-                
             }
         }
         stage('Test') {
             steps {
                 echo 'Realizando pruebas...'
-                
+                sh './RENAPSys/vendor/bin/phpunit ./RENAPSys/tests/Feature'
             }
         }
         stage('Deploy') {
