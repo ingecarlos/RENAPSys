@@ -15,7 +15,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Realizando pruebas...'
-                sh './RENAPSys/vendor/bin/phpunit ./RENAPSys/tests/Feature'
+                
             }
         }
         stage('Deploy') {
