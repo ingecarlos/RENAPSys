@@ -19,6 +19,7 @@ class unitariaBienvenidaTest extends TestCase
         /*
             Prueba unitaria para la verificacion del estado de pagina
             inicial y de mensaje Bienvenida del Sitio
+            @lnmrcloud
         */
         
         $response = $this->get('/');
