@@ -13,7 +13,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Realizando pruebas...'
-                sh 'phpunit --log-junit ./RENAPSys/testresults/phpunit/phpunit.xml -c ./RENAPSys/tests/Feature/phpunit.xml'
+                sh 'vendor/bin/phpunit --log-junit ./RENAPSys/testresults/phpunit/phpunit.xml -c ./RENAPSys/tests/Feature/phpunit.xml'
             }
         }
         stage('Deploy') {
