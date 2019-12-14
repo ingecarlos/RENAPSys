@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class unitariaBienvenidaTest extends TestCase
 {
+    
     /**
      * A basic feature test example.
      *
@@ -15,7 +16,6 @@ class unitariaBienvenidaTest extends TestCase
      */
     public function testUnitariaBienvenida()
     {
-
         /*
             Prueba unitaria para la verificacion del estado de pagina
             inicial y de mensaje Bienvenida del Sitio
