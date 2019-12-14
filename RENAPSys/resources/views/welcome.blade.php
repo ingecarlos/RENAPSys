@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    RENAPSys 2019
+                    RENAPSys 2019 prueba de etiquetas
                 </div>
 
                 <div class="links">
