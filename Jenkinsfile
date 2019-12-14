@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Iniciando Build...'
                 sh 'composer install -d ./RENAPSys'
-                
+                sh 'php ./RENAPSys/artisan key:generate'
 
                 
             }
