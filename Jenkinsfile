@@ -6,14 +6,16 @@ pipeline {
             steps {
                 echo 'Iniciando Build...'
                 sh 'composer install -d ./RENAPSys'
-                
+                sh 'mv ./RENAPSys/.env.example ./RENAPSys/.env'
+                sh 'php ./RENAPSys/artisan key:generate'
+
                 
             }
         }
         stage('Test') {
             steps {
                 echo 'Realizando pruebas...'
-                sh './RENAPSys/vendor/bin/phpunit'
+                sh './RENAPSys/vendor/bin/phpunit ./RENAPSys/tests/Feature'
             }
         }
         stage('Deploy') {
