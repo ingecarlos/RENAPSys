@@ -25,7 +25,7 @@ class unitariaBienvenidaTest extends TestCase
 
         $response->assertStatus(200);
         
-        $response->assertSeeText('RENAPSys 2019');
+        $response->assertSeeText('RENAPSys 2019 prueba de etiquetas');
 
     }
 }
