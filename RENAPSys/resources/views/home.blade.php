@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Bienvenido</title>
+        <title>Home</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,8 +12,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #81F7D8;
-                color: #2E2E2E;
+                background-color: #fff;
+                color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -55,35 +55,13 @@
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
+    <body>        
             <div class="content">
                 <div class="title m-b-md">
-                    RENAPSys
+                    Home
                 </div>
 
-                <div class="links">
-                    <a href="{{ url('/nacimiento') }}">Nacimiento</a>
-                    <a href="{{ url('/matrimonio') }}">Matrimonio</a>
-                    <a href="{{ url('/defuncion') }}">Defuncion</a>
-                    <a href="{{ url('/divorcio') }}">Divorcio</a>
-                    <a href="{{ url('/dpi') }}">DPI</a>
-                    <a href="{{ url('/licencia') }}">Licencia</a>                                                                     
-                    
+                
                 </div>
             </div>
         </div>
