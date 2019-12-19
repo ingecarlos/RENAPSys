@@ -8,8 +8,8 @@ pipeline {
                 sh 'composer install -d ./RENAPSys'
                 sh 'php ./RENAPSys/artisan key:generate'
 
-                sh 'docker build -t servicio-prueba ./microservicios/servicio_prueba/'
-                sh 'docker run -it --rm --name servicio_prueba-running servicio_prueba '
+                sh 'sudo docker build -t servicio_prueba ./microservicios/servicio_prueba/'
+                sh 'sudo docker run --rm --name servicio_prueba-running servicio_prueba -port 20000:20000'
 
             }
         }
