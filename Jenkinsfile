@@ -9,7 +9,7 @@ pipeline {
                 sh 'php ./RENAPSys/artisan key:generate'
 
                 sh 'sudo docker build -t servicio_prueba ./microservicios/servicio_prueba/'
-                sh 'sudo docker run --rm --name servicio_prueba-running servicio_prueba -port 20000:20000'
+                sh 'sudo docker run -d -p 81:81 --rm --name servicio_prueba-running servicio_prueba'
 
             }
         }
