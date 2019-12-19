@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS RENAP.Matrimonio;
 -- -----------------------------------------------------
 CREATE TABLE Matrimonio(
   id_matrimonio INT AUTO_INCREMENT NOT NULL,
-  fecha_matrimonio DATE NOT NULL,
+  fecha_matrimonio VARCHAR(45) NOT NULL,
   Estado_Matrimonio VARCHAR(15) NOT NULL,
   Persona_id_Esposa INT NOT NULL,
   Persona_id_Esposo INT NOT NULL,
@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS RENAP.Defuncion;
 CREATE TABLE Defuncion(
   id_defuncion INT AUTO_INCREMENT NOT NULL,
   Persona_id_persona INT NOT NULL,
-  fecha DATE NOT NULL,
+  fecha VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_defuncion),
   FOREIGN KEY (Persona_id_persona) REFERENCES Persona(id_persona));
 
@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS RENAP.Asignacion_licencia;
 -- -----------------------------------------------------
 CREATE TABLE Asignacion_licencia(
   idAsignacion_licencia INT AUTO_INCREMENT NOT NULL,
-  Fecha_asignacion DATE NOT NULL,
+  Fecha_asignacion VARCHAR(45) NOT NULL,
   Persona_id_persona INT NOT NULL,
   Tipo_Licencia_id_tipo_licencia INT NOT NULL,
   PRIMARY KEY (idAsignacion_licencia),
