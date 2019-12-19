@@ -7,6 +7,10 @@ pipeline {
                 echo 'Iniciando Build...'
                 sh 'composer install -d ./RENAPSys'
                 sh 'php ./RENAPSys/artisan key:generate'
+
+                sh 'docker build -t servicio-prueba ./microservicios/servicio_prueba/'
+                sh 'docker run -it --rm --name servicio_prueba-running servicio_prueba '
+
             }
         }
         stage('Test') {
