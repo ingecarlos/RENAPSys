@@ -1,3 +1,3 @@
 FROM php:7.4-cli
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
+COPY . /var/www/html
+WORKDIR /var/www/html
