@@ -127,6 +127,7 @@ CREATE TABLE Temporal_persona(
 -- -----------------------------------------------------
 -- carga masiva
 -- -----------------------------------------------------
+/*
 LOAD DATA INFILE 'c:/DeptoMuni_RENAP.csv' 
 INTO TABLE Temporal_depa_muni 
 FIELDS TERMINATED BY ';' 
@@ -138,25 +139,25 @@ INTO TABLE Temporal_persona
 FIELDS TERMINATED BY ';' 
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
-
+*/
 -- -----------------------------------------------------
 -- insertar Departamento-Municipio
 -- -----------------------------------------------------
 
-insert into departamento(Nombre_departamento,codigo_departamento)
+insert into Departamento(Nombre_departamento,codigo_departamento)
 select distinct t.nombre_departamento, t.codigo_departamento
-from temporal_depa_muni as t;
+from Temporal_depa_muni as t;
 
 insert into Municipio(Nombre_municipio,codigo_municipio,Departamento_id_departamento)
 select t.nombre_municipio, t.codigo_municipio, d.id_departamento 
-from temporal_depa_muni as t, departamento as d
+from Temporal_depa_muni as t, Departamento as d
 where t.codigo_departamento = d.codigo_departamento;
 
 -- -----------------------------------------------------
 -- insertar personas
 -- ----------------------------------------------------- 
 
-insert into persona(DPI,passw,Nombre,Apellido,Genero,Estado_Civil,Fecha_nacimiento,Municipio_id_municipio)
+insert into Persona(DPI,passw,Nombre,Apellido,Genero,Estado_Civil,Fecha_nacimiento,Municipio_id_municipio)
 select t.dpi, t.pass,t.nombre,t.apellido,t.genero,t.estado_civil,t.fecha_nac, m.id_municipio
-from temporal_persona as t, municipio as m
+from Temporal_persona as t, Municipio as m
 where t.codigo_municipio = m.codigo_municipio;
