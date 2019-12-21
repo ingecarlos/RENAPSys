@@ -27,7 +27,6 @@ pipeline {
                 sh 'docker build -t servicio_persona ./microservicios/servicio_persona/'
                 sh 'docker stop servicio_persona-running || true && docker rm servicio_persona-running || true'
                 sh 'docker run --name servicio_persona-running -p 9100:80 -d servicio_persona'
-
             }
         }
         stage('Test') {
