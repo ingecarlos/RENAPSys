@@ -10,7 +10,7 @@ include('library/template.php');
 			$fecha =  $_POST['fecha'];
 
 			//Verificar si ya existe una defuncion con el dpi solicitado
-			$sql = $pdo->prepare("SELECT persona.id_persona FROM Defuncion, Persona WHERE persona.dpi =:dpi and persona.id_persona=defuncion.persona_id_persona");
+			$sql = $pdo->prepare("SELECT Persona.id_persona FROM Defuncion, Persona WHERE Persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
 			$sql->bindParam(':dpi', $_POST['dpi']);
 			$sql->execute();
 
