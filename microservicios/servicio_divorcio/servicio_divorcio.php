@@ -81,6 +81,26 @@ $today = date("d-m-Y");
 	} else {
 			
 		}
+	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+		if( !empty($_GET['dpi'])){
+
+				$dpi =  $_GET['dpi'];
+				//Verificar si ya existe un divorcio con el dpi solicitado
+				$sql = $pdo->prepare("SELECT  m.id_matrimonio as nodivorcio, m.fecha_matrimonio as fecha, esposo.DPI as dpihombre, esposo.nombre as nombrehombre, esposo.apellido as apellidohombre, esposa.dpi as dpimujer, esposa.nombre as nombremujer, esposa.apellido as apellidomujer
+										FROM matrimonio as m, persona as esposo, persona as esposa
+										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
+										and m.Estado_matrimonio = '0'
+										and m.persona_id_esposa = esposa.id_persona
+										and m.persona_id_esposo = esposo.id_persona;");
+				$sql->bindParam(':dpi', $_GET['dpi']);
+				$sql->execute();
+
+				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+
+			}else {
+				
+			}
 	}
 
 ?>

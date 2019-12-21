@@ -79,7 +79,7 @@ $today = date("d-m-Y");
 
 				$dpi =  $_GET['dpi'];
 				//Verificar si ya existe una defuncion con el dpi solicitado
-				$sql = $pdo->prepare("SELECT  m.id_matrimonio, esposo.DPI, esposo.nombre, esposo.apellido, esposa.dpi, esposa.nombre, esposa.apellido, m.fecha_matrimonio
+				$sql = $pdo->prepare("SELECT  m.id_matrimonio as nomatrimonio, esposo.DPI as dpihombre, esposo.nombre as nombrehombre, esposo.apellido as apellidohombre, esposa.dpi as dpimujer, esposa.nombre as nombremujer, esposa.apellido as apellidomujer, m.fecha_matrimonio as fecha
 										FROM matrimonio as m, persona as esposo, persona as esposa
 										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
 										and m.Estado_matrimonio = '1'
