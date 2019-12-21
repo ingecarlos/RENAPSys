@@ -14,11 +14,11 @@ $today = date("d-m-Y");
 			$dpi_Mujer = $_POST['dpiEsposa'];
 			$fecha = $_POST['fecha'];
 
-			$sql = $pdo->prepare("SELECT id_persona FROM persona WHERE dpi =:dpiEsposo");
+			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiEsposo");
 			$sql->bindParam(':dpiEsposo', $_POST['dpiEsposo']);
 			$sql->execute();
 		    
-		    $sql2 = $pdo->prepare("SELECT id_persona FROM persona WHERE dpi =:dpiEsposa");
+		    $sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiEsposa");
 		    $sql2->bindParam(':dpiEsposa', $_POST['dpiEsposa']);
 			$sql2->execute();
 
@@ -28,7 +28,7 @@ $today = date("d-m-Y");
 		    	exit();
 		    } else{
 		    	//las dos personas existen
-		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM persona WHERE dpi =:dpiEsposo");
+		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposo");
 				$sql3->bindParam(':dpiEsposo', $_POST['dpiEsposo']);
 				$sql3->execute();
 
@@ -36,7 +36,7 @@ $today = date("d-m-Y");
 		        $ec_hombre = $result_hombre['Estado_Civil'];
 		        //print($ec_hombre);
 
-				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM persona WHERE dpi =:dpiEsposo");
+				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposo");
 				$sql4->bindParam(':dpiEsposo', $_POST['dpiEsposa']);
 				$sql4->execute();
 
@@ -60,14 +60,14 @@ $today = date("d-m-Y");
 		    		//cambiar el estado del matrimonio a matrimonio inactivo -> 0
 		    		// cambiar el estado civil de las dos personas 
 
-				    $sql5 = $pdo->prepare("UPDATE matrimonio SET Estado_Matrimonio ='0' , Fecha_matrimonio='$fecha' WHERE Persona_id_Esposa = $id_mujer and Persona_id_Esposo = $id_hombre");
+				    $sql5 = $pdo->prepare("UPDATE Matrimonio SET Estado_Matrimonio ='0' , Fecha_matrimonio='$fecha' WHERE Persona_id_Esposa = $id_mujer and Persona_id_Esposo = $id_hombre");
 				    $sql5->execute();
 
 				    // cambiar estado civil de las personas involucradas 
-				    $sql6 = $pdo->prepare("UPDATE persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_hombre");
+				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_hombre");
 				    $sql6->execute();
 
-				    $sql7 = $pdo->prepare("UPDATE persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_mujer");
+				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_mujer");
 				    $sql7->execute();
 
 		        }else{
@@ -88,7 +88,7 @@ $today = date("d-m-Y");
 				$dpi =  $_GET['dpi'];
 				//Verificar si ya existe un divorcio con el dpi solicitado
 				$sql = $pdo->prepare("SELECT  m.id_matrimonio as nodivorcio, m.fecha_matrimonio as fecha, esposo.DPI as dpihombre, esposo.nombre as nombrehombre, esposo.apellido as apellidohombre, esposa.dpi as dpimujer, esposa.nombre as nombremujer, esposa.apellido as apellidomujer
-										FROM matrimonio as m, persona as esposo, persona as esposa
+										FROM Matrimonio as m, Persona as esposo, Persona as esposa
 										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
 										and m.Estado_matrimonio = '0'
 										and m.persona_id_esposa = esposa.id_persona
