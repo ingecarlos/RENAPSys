@@ -1,6 +1,6 @@
 <?php
-$hote = '127.0.0.1';
-$port = "3309";
+$hote = '35.225.36.65';
+$port = "3306";
 $nom_bdd = 'renapdb';
 $utilisateur = 'usuario';
 $mot_de_passe ='usuario';
