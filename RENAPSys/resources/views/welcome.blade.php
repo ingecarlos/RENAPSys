@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Bienvenido</title>
+        <title>RenapSys Administracion</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,7 +12,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #81F7D8;
+                background-color: #E6E6E6;
                 color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -81,10 +81,12 @@
                     <a href="{{ url('/matrimonio') }}">Matrimonio</a>
                     <a href="{{ url('/defuncion') }}">Defuncion</a>
                     <a href="{{ url('/divorcio') }}">Divorcio</a>
+                    <!--
                     <a href="{{ url('/dpi') }}">DPI</a>
                     <a href="{{ url('/licencia') }}">Licencia</a>                                                                     
+                    -->
                     
-                </div>
+            </div>
             </div>
         </div>
     </body>

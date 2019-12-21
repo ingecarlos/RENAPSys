@@ -20,7 +20,17 @@ class DefuncionController extends Controller
 
     public function store(Request $request)
     {
-        return Redirect::to("/defuncion")->withSuccess('Bien hecho!');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'localhost:9002/servicio_defuncion.php', [
+        'form_params' => [
+            'dpi' => $request->input('dpi'),
+            ]
+        ]);
+        $response = $response->getBody()->getContents();
+        return Redirect::to("/defuncion")->withSuccess('Bien hecho!');  
+        echo '<pre>';
+        print_r($response);
         
+              
     }
 }
