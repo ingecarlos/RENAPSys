@@ -11,7 +11,7 @@ include('library/template.php');
 			$fecha =  $_POST['fecha'];
 
 			//Verificar si ya existe una defuncion con el dpi solicitado
-			$sql = $pdo->prepare("SELECT persona.id_persona FROM Defuncion, Persona WHERE persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
+			$sql = $pdo->prepare("SELECT Persona.id_persona FROM Defuncion, Persona WHERE Persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
 			$sql->bindParam(':dpi', $_POST['dpi']);
 			$sql->execute();
 
@@ -19,7 +19,7 @@ include('library/template.php');
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
 		    		//echo $dpi;
 		    		// obtener el id_persona de la persona
-		    		$sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE DPI=$dpi");
+		    		$sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE DPI='$dpi'");
 				    $sql2->execute();
 				    $result = $sql2->fetch(PDO::FETCH_ASSOC);
 				    $id_persona = $result['id_persona'];
