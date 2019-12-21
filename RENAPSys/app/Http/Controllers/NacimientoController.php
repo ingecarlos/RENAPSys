@@ -23,7 +23,7 @@ class NacimientoController extends Controller
     public function store(Request $request)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', $this->host.':9005/', [
+        $response = $client->request('POST', $this->host.':9000/', [
         'form_params' => [
             'dpiHhombre' => $request->input('dpimadre'),
             'dpiMujer' => $request->input('dpipadre'),
