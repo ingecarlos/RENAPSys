@@ -34,9 +34,21 @@ include('library/template.php');
 		    	echo 'existe defunsion';
 		    exit();
 			}
-	} else {
-			
 		}
-	}
+	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+		// servicio cliente externo -> consulta de defuncion 
+			if( !empty($_GET['dpi'])){
 
+				$dpi =  $_GET['dpi'];
+				//Verificar si ya existe una defuncion con el dpi solicitado
+				$sql = $pdo->prepare("SELECT d.id_defuncion, d.fecha, p.Nombre , p.Apellido FROM defuncion as d, persona as p WHERE p.DPI =:dpi and d.Persona_id_persona  = p.id_persona;");
+				$sql->bindParam(':dpi', $_GET['dpi']);
+				$sql->execute();
+
+				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+
+			}else {
+				
+			}
+		}
 ?>
