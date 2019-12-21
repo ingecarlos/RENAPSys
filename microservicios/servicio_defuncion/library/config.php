@@ -1,9 +1,9 @@
 <?php
-$hote = '35.225.36.65';
+$hote = '35.202.248.44';
 $port = "3306";
 $nom_bdd = 'renapdb';
-$utilisateur = 'usuario';
-$mot_de_passe ='usuario';
+$utilisateur = 'root';
+$mot_de_passe ='123';
 
 try {
 	//On test la connexion à la base de donnée
