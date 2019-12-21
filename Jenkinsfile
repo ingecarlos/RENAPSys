@@ -5,11 +5,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Iniciando Build...'
-                sh 'composer install -d ./RENAPSys'
-                sh 'php ./RENAPSys/artisan key:generate'
+                echo 'creando contenedores'
 
-                sh 'sudo docker build -t servicio_prueba ./microservicios/servicio_prueba/'
-                sh 'sudo docker run -d -p 81:81 --rm --name servicio_prueba-running servicio_prueba'
+                echo 'servicio prueba'
+                sh 'docker build -t servicio_prueba ./microservicios/servicio_prueba/'
+                sh 'docker run --name servicio_prueba-running -p 9002:80 -d servicio_prueba'
 
             }
         }
