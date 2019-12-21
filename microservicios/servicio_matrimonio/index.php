@@ -63,10 +63,10 @@ $today = date("d-m-Y");
 				    $sql5->execute();
 
 				    // cambiar estado civil de las personas involucradas 
-				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE persona.id_persona = '$id_hombre'");
+				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil =\'casado\' WHERE persona.id_persona = '$id_hombre'");
 				    $sql6->execute();
 
-				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE persona.id_persona = '$id_mujer'");
+				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil =\'casado\' WHERE persona.id_persona = '$id_mujer'");
 				    $sql7->execute();
 
 		        }
