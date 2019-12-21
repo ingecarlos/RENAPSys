@@ -20,7 +20,19 @@ class MatrimonioController extends Controller
 
     public function store(Request $request)
     {
-        return Redirect::to("/matrimonio")->withSuccess('Bien hecho!');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'localhost:9001/servicio_matrimonio.php', [
+        'form_params' => [
+            'dpiHombre' => $request->input('dpih'),
+            'dpiMujer' => $request->input('dpim'),
+            'fecha' => $request->input('fecham'),
+            ]   
+        ]);
+        $response = $response->getBody()->getContents();
+        return Redirect::to("/info")->withSuccess('Bien hecho!'); 
+        echo '<pre>';
+        print_r($response);
+        
         
     }
 }

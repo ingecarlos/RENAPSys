@@ -24,7 +24,8 @@ class DefuncionController extends Controller
         $response = $client->request('POST', 'localhost:9002/servicio_defuncion.php', [
         'form_params' => [
             'dpi' => $request->input('dpi'),
-            ]
+            'fecha' => $request->input('fechaf'),
+            ]   
         ]);
         $response = $response->getBody()->getContents();
         return Redirect::to("/defuncion")->withSuccess('Bien hecho!');  
