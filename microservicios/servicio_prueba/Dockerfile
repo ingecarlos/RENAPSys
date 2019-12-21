@@ -9,12 +9,8 @@ RUN apt-get install -y php-dev php-bcmath php-json php-json-schema php-mbstring 
 
 
 RUN rm -R /var/www/html
-RUN mkdir /servicio
-WORKDIR /servicio
-RUN apt-get install -y git
-RUN git clone https://github.com/ingecarlos/RENAPSys.git
 
 ADD . /var/www/html/
-
+WORKDIR /var/www/html
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 EXPOSE 80
