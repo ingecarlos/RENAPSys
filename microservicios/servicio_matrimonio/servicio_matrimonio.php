@@ -72,9 +72,27 @@ $today = date("d-m-Y");
 		        }
 		    }
 
-	} else {
-			
 		}
+	} else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+		// servicio cliente externo -> consulta de defuncion 
+			if( !empty($_GET['dpi'])){
+
+				$dpi =  $_GET['dpi'];
+				//Verificar si ya existe una defuncion con el dpi solicitado
+				$sql = $pdo->prepare("SELECT  m.id_matrimonio, esposo.DPI, esposo.nombre, esposo.apellido, esposa.dpi, esposa.nombre, esposa.apellido, m.fecha_matrimonio
+										FROM matrimonio as m, persona as esposo, persona as esposa
+										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
+										and m.Estado_matrimonio = '1'
+										and m.persona_id_esposa = esposa.id_persona
+										and m.persona_id_esposo = esposo.id_persona;");
+				$sql->bindParam(':dpi', $_GET['dpi']);
+				$sql->execute();
+
+				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+
+			}else {
+				
+			}
 	}
 
 ?>
