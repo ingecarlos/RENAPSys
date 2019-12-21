@@ -11,7 +11,7 @@ try {
     echo 'conexión lograda';
 
 } catch(Exception $e) {
-	echo 'error en la conexión'
+	echo 'error en la conexión';
 	//Si la connexion n'est pas établie, on stop le chargement de la page.
 	reponse_json($success, $data, 'Echec de la connexion à la base de données');
     exit();
