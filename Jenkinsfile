@@ -5,27 +5,41 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Iniciando Build...'
-                sh 'composer install -d ./RENAPSys'
-                sh 'php ./RENAPSys/artisan key:generate'
+                echo 'creando contenedores'
 
-                sh 'sudo docker build -t servicio_prueba ./microservicios/servicio_prueba/'
-                sh 'sudo docker run -d -p 81:81 --rm --name servicio_prueba-running servicio_prueba'
+                echo 'servicio defuncion'
+                sh 'docker build -t servicio_defuncion ./microservicios/servicio_defuncion/'
+                sh 'docker stop servicio_defuncion-running || true && docker rm servicio_defuncion-running || true'
+                sh 'docker run --name servicio_defuncion-running -p 9002:80 -d servicio_defuncion'
+
+
+                echo 'servicio divorcio'
+                sh 'docker build -t servicio_divorcio ./microservicios/servicio_divorcio/'
+                sh 'docker stop servicio_divorcio-running || true && docker rm servicio_divorcio-running || true'
+                sh 'docker run --name servicio_divorcio-running -p 9003:80 -d servicio_divorcio'
+                
+                echo 'servicio matrimonio'
+                sh 'docker build -t servicio_matrimonio ./microservicios/servicio_matrimonio/'
+                sh 'docker stop servicio_matrimonio-running || true && docker rm servicio_matrimonio-running || true'
+                sh 'docker run --name servicio_matrimonio-running -p 9001:80 -d servicio_matrimonio'
+
+                echo 'servicio persona'
+                sh 'docker build -t servicio_persona ./microservicios/servicio_persona/'
+                sh 'docker stop servicio_persona-running || true && docker rm servicio_persona-running || true'
+                sh 'docker run --name servicio_persona-running -p 9100:80 -d servicio_persona'
 
             }
         }
         stage('Test') {
             steps {
                 echo 'Realizando pruebas...'
-                sh './RENAPSys/vendor/bin/phpunit ./RENAPSys/tests/Feature'
+                
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Despliegue...'
-                sh 'rm -r /var/www/html/RENAPSys'
-                sh 'cp -r ./RENAPSys /var/www/html/'
-                sh 'if [ $(lsof -t -i:9000) != "" ]; then kill $(lsof -t -i:9000); else echo "vacio"; fi'
-                sh 'JENKINS_NODE_COOKIE=dontKillMe nohup php /var/www/html/RENAPSys/artisan serve --host 0.0.0.0 --port 9000 &'
+
             }
         }
     }
