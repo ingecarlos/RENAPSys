@@ -27,8 +27,8 @@ Route::get('/nacimientosInfo', 'NacimientosInfoController@info')->name('InfoNaci
 Route::get('/matrimonios', 'MatrimoniosController@index')->name('matrimonio');
 Route::post('/matrimoniosInfo', 'MatrimoniosController@info')->name('InfoMatrimonio');
 
-Route::get('/defunciones', 'DefuncionesController@index')->name('defuncion');
-Route::post('/defuncionesInfo', 'DefuncionesInfoController@info')->name('InfoDefuncion');
+Route::get('/defunciones', 'DefuncionesController@index')->name('defunciones');
+Route::get('/defuncionesInfo', 'DefuncionesController@getRequest')->name('defuncionesInfo');
 
 Route::get('/divorcios', 'DivorciosController@index')->name('divorcio');
 Route::post('/divorciosInfo', 'DivorciosInfoController@info')->name('InfoDivorcio');
