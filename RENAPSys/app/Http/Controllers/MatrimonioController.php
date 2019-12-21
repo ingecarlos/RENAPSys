@@ -8,6 +8,8 @@ use Session;
 
 class MatrimonioController extends Controller
 {
+    private $host = '35.232.40.193';
+
     public function __construct()
     {
 
@@ -21,7 +23,7 @@ class MatrimonioController extends Controller
     public function store(Request $request)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'localhost:9001/servicio_matrimonio.php', [
+        $response = $client->request('POST', $this->host.':9001/', [
         'form_params' => [
             'dpiHombre' => $request->input('dpih'),
             'dpiMujer' => $request->input('dpim'),
