@@ -21,7 +21,7 @@ pipeline {
                 echo 'servicio matrimonio'
                 sh 'docker build -t servicio_matrimonio ./microservicios/servicio_matrimonio/'
                 sh 'docker stop servicio_matrimonio-running || true && docker rm servicio_matrimonio-running || true'
-                sh 'docker run --name servicio_matrimonio-running -p 9003:80 -d servicio_matrimonio'
+                sh 'docker run --name servicio_matrimonio-running -p 9001:80 -d servicio_matrimonio'
 
 
             }
