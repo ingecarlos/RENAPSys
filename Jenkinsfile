@@ -9,6 +9,7 @@ pipeline {
 
                 echo 'servicio prueba'
                 sh 'docker build -t servicio_prueba ./microservicios/servicio_prueba/'
+                sh 'docker stop servicio_prueba-running'
                 sh 'docker run --name servicio_prueba-running -p 9002:80 -d servicio_prueba'
 
             }
