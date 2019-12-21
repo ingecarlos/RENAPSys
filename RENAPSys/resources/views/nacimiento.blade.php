@@ -117,8 +117,14 @@
                             <input type="text" class="form-control" id="municipio" placeholder="Municipio" name="municipio">
                             <span class="text-danger">{{ $errors->first('municipio') }}</span>
                         </div>
-                     </div>
 
+                        <div class="col-sm-10">          
+                            <label class="col-6" for="municipio">Sexo:</label>
+                            <input type="text" class="form-control" id="sexo" placeholder="Sexo" name="sexo">
+                            <span class="text-danger">{{ $errors->first('sexo') }}</span>
+                        </div>
+                     </div>
+                    <!--
                      <div class="form-group row">
                         <div class="col-sm-10">
                             <div class="form-check">
@@ -143,7 +149,7 @@
                             }
                         }
                     </script>
-           
+                        -->
                      
                      <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">                            
