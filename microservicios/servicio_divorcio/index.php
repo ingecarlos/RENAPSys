@@ -60,14 +60,14 @@ $today = date("d-m-Y");
 		    		//cambiar el estado del matrimonio a matrimonio inactivo -> 0
 		    		// cambiar el estado civil de las dos personas 
 
-				    $sql5 = $pdo->prepare("UPDATE Matrimonio SET Estado_Matrimonio ='0' , Fecha_matrimonio='$fecha' WHERE Persona_id_Esposa = $id_mujer and Persona_id_Esposo = $id_hombre");
+				    $sql5 = $pdo->prepare("UPDATE Matrimonio SET Estado_Matrimonio ='0' , Fecha_matrimonio='$fecha' WHERE Persona_id_Esposa = '$id_mujer' and Persona_id_Esposo = '$id_hombre'");
 				    $sql5->execute();
 
 				    // cambiar estado civil de las personas involucradas 
-				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_hombre");
+				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE Persona.id_persona = '$id_hombre'");
 				    $sql6->execute();
 
-				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE persona.id_persona = $id_mujer");
+				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE Persona.id_persona = '$id_mujer'");
 				    $sql7->execute();
 
 		        }else{

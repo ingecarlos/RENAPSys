@@ -35,8 +35,8 @@ $today = date("d-m-Y");
 		        $ec_hombre = $result_hombre['Estado_Civil'];
 		        //print($ec_hombre);
 
-				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiHombre");
-				$sql4->bindParam(':dpiHombre', $_POST['dpiMujer']);
+				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiMujer");
+				$sql4->bindParam(':dpiMujer', $_POST['dpiMujer']);
 				$sql4->execute();
 
 				$result_mujer = $sql4->fetch(PDO::FETCH_ASSOC);
@@ -59,14 +59,14 @@ $today = date("d-m-Y");
 		    		$id_mujer = $result_mujer['id_persona'];
 		    		//print($id_mujer);
 
-		        	$sql5 = $pdo->prepare("INSERT INTO Matrimonio(fecha_matrimonio, Estado_Matrimonio, Persona_id_Esposa, Persona_id_Esposo) VALUES('$fecha', '1', $id_mujer, $id_hombre)");
+		        	$sql5 = $pdo->prepare("INSERT INTO Matrimonio(fecha_matrimonio, Estado_Matrimonio, Persona_id_Esposa, Persona_id_Esposo) VALUES('$fecha', '1', '$id_mujer', '$id_hombre')");
 				    $sql5->execute();
 
 				    // cambiar estado civil de las personas involucradas 
-				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE persona.id_persona = $id_hombre");
+				    $sql6 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE Persona.id_persona = '$id_hombre'");
 				    $sql6->execute();
 
-				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE persona.id_persona = $id_mujer");
+				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE Persona.id_persona = '$id_mujer'");
 				    $sql7->execute();
 
 		        }
