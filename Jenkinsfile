@@ -27,6 +27,12 @@ pipeline {
                 sh 'docker build -t servicio_persona ./microservicios/servicio_persona/'
                 sh 'docker stop servicio_persona-running || true && docker rm servicio_persona-running || true'
                 sh 'docker run --name servicio_persona-running -p 9100:80 -d servicio_persona'
+
+                echo 'Cliente Interno'
+                sh 'docker build -t interno ./RENAPSys/'
+                sh 'docker stop interno-running || true && docker rm interno-running || true'
+                sh 'docker run --name interno-running -p 10000:80 -d servicio_persona'
+
             }
         }
         stage('Test') {
