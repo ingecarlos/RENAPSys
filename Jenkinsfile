@@ -34,7 +34,7 @@ pipeline {
                 sh 'docker run --name interno-running -p 10000:80 -d interno'
 
                 echo 'servicio nacimiento'
-                sh 'docker build -t servicio_nacimiento ./RENAPSys/'
+                sh 'docker build -t servicio_nacimiento ./microservicios/servicio_nacimiento/'
                 sh 'docker stop servicio_nacimiento-running || true && docker rm servicio_nacimiento-running || true'
                 sh 'docker run --name servicio_nacimiento-running -p 9000:80 -d servicio_nacimiento'
 
