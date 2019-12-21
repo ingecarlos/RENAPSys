@@ -59,7 +59,7 @@ $today = date("d-m-Y");
 		        	$soltero = "soltero";
 
 					// insertar nueva persona -> se necesita -> codigo de municipio
-					$sql_nueva = $pdo->prepare("INSERT INTO Persona(Nombre, Apellido, Genero, Estado_Civil, Fecha_nacimiento, Municipio_id_municipio) VALUES('$nombre', '$apellido', '$genero', '$soltero', '$fechaNacimiento', '$id_muni')");
+					$sql_nueva = $pdo->prepare("INSERT INTO Persona(Nombre, Apellido, Genero, Estado_Civil, Fecha_nacimiento, Municipio_id_municipio) VALUES('$nombre', '$apellido', '$genero', '$soltero', '$fechaNacimiento', $id_muni);");
 					$sql_nueva->execute();
 
 
