@@ -4,6 +4,7 @@ include('library/template.php');
 //$today = date("d-m-Y"); 
 //Servicio de Defuncion - setDefuncion 
 
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 			if( !empty($_POST['dpi']) && !empty($_POST['fecha'])){
 			$dpi =  $_POST['dpi'];
@@ -24,8 +25,9 @@ include('library/template.php');
 				    $id_persona = $result['id_persona'];
 				    //print($id_persona);
 				    // id_persona obtenido -> $id_persona
-				    $sql3 = $pdo->prepare("INSERT INTO Defuncion(persona_id_persona, fecha) VALUES($id_persona, '$fecha')");
+				    $sql3 = $pdo->prepare("INSERT INTO Defuncion(Persona_id_persona, fecha) VALUES($id_persona, '$fecha');");
 				    $sql3->execute();
+
 				    exit();
 			//el dpi solicitado si posee una defuncion asignada -> responder error codigo 500
 		    }else{
