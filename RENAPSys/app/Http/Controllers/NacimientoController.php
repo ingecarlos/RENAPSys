@@ -25,13 +25,13 @@ class NacimientoController extends Controller
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', $this->host.':9000/', [
         'form_params' => [
-            'dpiHhombre' => $request->input('dpimadre'),
+            'dpiHombre' => $request->input('dpimadre'),
             'dpiMujer' => $request->input('dpipadre'),
             'apellido' => $request->input('apellidos'),
             'nombre' => $request->input('nombres'),            
             'fechaNacimiento' => $request->input('fechaf'),
-            'sexo' => $request->input('sexo'),
-            'depto' => $request->input('depto'),
+            'genero' => $request->input('sexo'),
+            'departamento' => $request->input('depto'),
             'municipio' => $request->input('municipio'),            
             ]   
         ]);
