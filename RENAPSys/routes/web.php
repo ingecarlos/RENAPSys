@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/info', 'InfoController@index')->name('info');
 
 Route::get('/nacimiento', 'NacimientoController@index')->name('nacimiento');
 Route::post('/nacimiento', 'NacimientoController@store')->name('nacimiento');

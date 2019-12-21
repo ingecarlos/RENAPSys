@@ -20,7 +20,21 @@ class DivorcioController extends Controller
 
     public function store(Request $request)
     {
-        return Redirect::to("/divorcio")->withSuccess('Bien hecho!');
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'localhost:9003/servicio_divorcio.php', [
+        'form_params' => [
+            'dpiEsposo' => $request->input('dpih'),
+            'dpiEsposa' => $request->input('dpim'),
+            'fecha' => $request->input('fecham'),
+            ]   
+        ]);
+        $response = $response->getBody()->getContents();  
+        //$response2 = json_decode($response->getBody())
+        echo '<pre>';        
+        print_r($response);        
+        //print_r($response2);        
+        return Redirect::to("/info")->withSuccess('bien hecho!');                
+        
         
     }
 
