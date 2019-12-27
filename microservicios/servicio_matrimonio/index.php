@@ -6,7 +6,7 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-			if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['fecha'])){
+		if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['fecha'])){
 			
 			//obtener id_persona de cada involucrado
 
@@ -24,8 +24,12 @@ $today = date("d-m-Y");
 
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql2->fetch(PDO::FETCH_ASSOC)) == "false"){
 		    	// no existe alguna persona -> retornar error
+
+		    	$arr = array('estado' => '500', 'mensaje' => 'Error en operacion');
+		    	echo json_encode($arr);
 		    	exit();
-		    } else{
+
+		    }else{
 		    	//las dos personas existen
 		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiHombre");
 				$sql3->bindParam(':dpiHombre', $_POST['dpiHombre']);
@@ -46,6 +50,11 @@ $today = date("d-m-Y");
 		        if($ec_hombre == "casado" || $ec_mujer == "casado"){
 		        	//error -> alguno esta casado
 		        	echo "casados no se pueden casar ";
+
+		        	$arr = array('estado' => '500', 'mensaje' => 'Error en operacion');
+		    		echo json_encode($arr);
+		    		exit();
+
 		        }else{
 		        	//los dos se pueden casar
 
@@ -69,11 +78,19 @@ $today = date("d-m-Y");
 				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='casado' WHERE Persona.id_persona = '$id_mujer'");
 				    $sql7->execute();
 
+				    $arr = array('estado' => '200', 'mensaje' => 'Ok');
+		    		echo json_encode($arr);
+
+		    		exit();
 		        }
 		    }
+		}else{
 
+			$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    echo json_encode($arr);
 		}
-	} else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+	
+	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
 		// servicio cliente externo -> consulta de defuncion 
 			if( !empty($_GET['dpi'])){
 
@@ -92,6 +109,8 @@ $today = date("d-m-Y");
 
 			}else {
 				
+				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	echo json_encode($arr);
 			}
 	}
 
