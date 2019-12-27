@@ -7,7 +7,7 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-			if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['apellido']) &&  !empty($_POST['nombre']) &&  !empty($_POST['fechaNacimiento']) &&  !empty($_POST['genero']) &&  !empty($_POST['departamento']) &&  !empty($_POST['municipio'])){
+		if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['apellido']) &&  !empty($_POST['nombre']) &&  !empty($_POST['fechaNacimiento']) &&  !empty($_POST['genero']) &&  !empty($_POST['departamento']) &&  !empty($_POST['municipio'])){
 			
 			//obtener datos de parametro
 
@@ -85,9 +85,42 @@ $today = date("d-m-Y");
 
 					//echo "insercion";
 				}
+		    }else{
 
+		    	$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	echo json_encode($arr);
 		    }
+	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+		// servicio cliente externo -> consulta de defuncion 
+			if( !empty($_GET['dpiPadreMadre'])){
 
-		} 
+				$dpi =  $_GET['dpiPadreMadre'];
+				//Verificar los hijos que tiene la persona
+
+				$sql = $pdo->prepare("SELECT AsigT.id_asignacion_tutor as noacta, Hijo.Apellido as apellidos, Hijo.Nombre as nombre, 
+									Tutor.DPI as dpipadre, Tutor.Nombre as nombrepadre, Tutor.Apellido as apellidopadre, 
+									Tutora.Nombre as dpimadre, Tutora.Apellido as apellidomadre, Tutora.Nombre as nombremadre,
+									Hijo.Fecha_nacimiento as fechanac, Dept.Nombre_departamento as departamento, Muni.Nombre_municipio as municipio,
+									Hijo.Genero as genero
+									FROM Asignacion_Tutor as AsigT, Persona as Tutor, Persona as Tutora, Persona as Hijo , Departamento as Dept , Municipio as Muni
+									WHERE (Tutor.DPI =:dpiPadreMadre OR Tutora.DPI =:dpiPadreMadre)
+									AND Tutor.id_persona = AsigT.Persona_id_tutor
+									AND Tutora.id_persona = AsigT.Persona_id_tutora
+									AND Hijo.id_persona = AsigT.Persona_id_persona
+									AND Hijo.Municipio_id_municipio = Muni.id_municipio
+									AND Muni.Departamento_id_departamento = Dept.id_departamento;");
+				$sql->bindParam(':dpiPadreMadre', $_GET['dpiPadreMadre']);
+				$sql->execute();
+
+				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+
+			}else {
+				
+				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	echo json_encode($arr);
+			}
+	}
+
+
 
 ?>

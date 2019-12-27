@@ -24,7 +24,11 @@ $today = date("d-m-Y");
 
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql2->fetch(PDO::FETCH_ASSOC)) == "false"){
 		    	// no existe alguna persona -> retornar error
-		    	echo hola;
+		    	//echo hola;
+		    	
+		    	$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
+		    	echo json_encode($arr);
+
 		    	exit();
 		    } else{
 		    	//las dos personas existen
@@ -70,15 +74,27 @@ $today = date("d-m-Y");
 				    $sql7 = $pdo->prepare("UPDATE Persona SET Estado_Civil ='divorciado' WHERE Persona.id_persona = '$id_mujer'");
 				    $sql7->execute();
 
+				    //retornar mensaje
+				    $arr = array('estado' => '400', 'mensaje' => 'Ok');
+		    		echo json_encode($arr);
+				    exit();
+
 		        }else{
 
-		        	echo "los que no estan casados no se pueden divorciar";
+		        	//echo "los que no estan casados no se pueden divorciar";
 		        	//los dos se pueden casar
+
+		        	$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
+		    		echo json_encode($arr);
+		    		exit();
 
 		        }
 		    }
 
 	} else {
+
+				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	echo json_encode($arr);
 			
 		}
 	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
@@ -100,6 +116,8 @@ $today = date("d-m-Y");
 
 			}else {
 				
+				arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	echo json_encode($arr);
 			}
 	}
 
