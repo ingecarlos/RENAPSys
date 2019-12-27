@@ -249,7 +249,7 @@ $today = date("d-m-Y");
 
 				$dpi =  $_GET['dpi'];
 				//Verificar si existe la persona y licencia asignada
-				$sql = $pdo->prepare("SELECT P.Apellido as apellido, P.Nombre as nombre, T.Descripcion_Letra as tipo, AL.Fecha_asignacion as fechanac
+				$sql = $pdo->prepare("SELECT P.Apellido as apellidos, P.Nombre as nombre, T.Descripcion_Letra as tipo, AL.Fecha_asignacion as fechanac
 										FROM Persona as P , Asignacion_licencia as AL, Tipo_Licencia as T
 										WHERE P.DPI = :dpi
 										AND P.id_persona = AL.Persona_id_persona

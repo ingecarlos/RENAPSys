@@ -7,12 +7,12 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['apellido']) &&  !empty($_POST['nombre']) &&  !empty($_POST['fechaNacimiento']) &&  !empty($_POST['genero']) &&  !empty($_POST['departamento']) &&  !empty($_POST['municipio'])){
+		if( !empty($_POST['dpiPadre']) && !empty($_POST['dpiMadre']) && !empty($_POST['apellido']) &&  !empty($_POST['nombre']) &&  !empty($_POST['fechaNacimiento']) &&  !empty($_POST['genero']) &&  !empty($_POST['departamento']) &&  !empty($_POST['municipio'])){
 			
 			//obtener datos de parametro
 
-			$dpiHombre =  $_POST['dpiHombre'];
-			$dpiMujer = $_POST['dpiMujer'];
+			$dpiPadre =  $_POST['dpiPadre'];
+			$dpiMadre = $_POST['dpiMadre'];
 			$apellido = $_POST['apellido'];
 			$nombre = $_POST['nombre'];
 			$fechaNacimiento = $_POST['fechaNacimiento'];
@@ -22,12 +22,12 @@ $today = date("d-m-Y");
 
 			//comprobar que existan ambos padres para insertar 
 
-			$sql_padre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiHombre");
-			$sql_padre->bindParam(':dpiHombre', $_POST['dpiHombre']);
+			$sql_padre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiPadre");
+			$sql_padre->bindParam(':dpiPadre', $_POST['dpiPadre']);
 			$sql_padre->execute();
 
-			$sql_madre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiMujer");
-		    $sql_madre->bindParam(':dpiMujer', $_POST['dpiMujer']);
+			$sql_madre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiMadre");
+		    $sql_madre->bindParam(':dpiMadre', $_POST['dpiMadre']);
 			$sql_madre->execute();
 
 			$sql_depto = $pdo->prepare("SELECT id_departamento FROM Departamento WHERE Nombre_departamento =:departamento");
@@ -74,7 +74,7 @@ $today = date("d-m-Y");
 
 
 		        	$sql_hijo = $pdo->prepare("SELECT id_persona FROM Persona WHERE Nombre = '$nombre' and Apellido= '$apellido' and Fecha_nacimiento = '$fechaNacimiento'");
-					//$sql_hijo->bindParam(':dpiHombre', $_POST['dpiHombre']);
+					//$sql_hijo->bindParam(':dpiPadre', $_POST['dpiPadre']);
 					$sql_hijo->execute();
 					$result_hijo = $sql_hijo->fetch(PDO::FETCH_ASSOC);
 		        	$id_hijo = $result_hijo['id_persona'];
