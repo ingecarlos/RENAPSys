@@ -112,8 +112,20 @@ $today = date("d-m-Y");
 				$sql->bindParam(':dpiPadreMadre', $_GET['dpiPadreMadre']);
 				$sql->execute();
 
-				echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
-				//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+
+				if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
+					// no hay hijos asignados
+
+					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
+		    		echo json_encode($arr);
+
+				}else{
+					//datos de nacimiento asignada
+						$sql->execute();
+						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));	
+						exit();		
+				}
 
 			}else {
 				
