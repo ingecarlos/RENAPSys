@@ -14,9 +14,19 @@ include('library/template.php');
 			$sql->bindParam(':dpi', $_GET['dpi']);
 			$sql->execute();
 		    
-		    echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
-		    //echo json_encode(  $sql->fetch(PDO::FETCH_ASSOC)  );
-		    exit();
+				if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
+					// no hay dpi existente
+
+					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
+		    		echo json_encode($arr);
+
+				}else{
+					//datos de persona por dpi
+						$sql->execute();
+						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));	
+						exit();		
+				}
 
 		} else {
 			
