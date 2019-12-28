@@ -30,11 +30,11 @@ $today = date("d-m-Y");
 		    $sql_madre->bindParam(':dpiMadre', $_POST['dpiMadre']);
 			$sql_madre->execute();
 
-			$sql_depto = $pdo->prepare("SELECT id_departamento FROM Departamento WHERE Nombre_departamento =:departamento");
+			$sql_depto = $pdo->prepare("SELECT id_departamento FROM Departamento WHERE codigo_departamento =:departamento");
 		    $sql_depto->bindParam(':departamento', $_POST['departamento']);
 			$sql_depto->execute();
 
-			$sql_muni = $pdo->prepare("SELECT Municipio.id_municipio FROM Municipio, Departamento WHERE Municipio.Departamento_id_Departamento = Departamento.id_departamento and Municipio.Nombre_municipio =:municipio");
+			$sql_muni = $pdo->prepare("SELECT Municipio.id_municipio FROM Municipio, Departamento WHERE Municipio.Departamento_id_Departamento = Departamento.id_departamento and Municipio.codigo_municipio =:municipio");
 		    $sql_muni->bindParam(':municipio', $_POST['municipio']);
 			$sql_muni->execute();
 
@@ -112,7 +112,8 @@ $today = date("d-m-Y");
 				$sql->bindParam(':dpiPadreMadre', $_GET['dpiPadreMadre']);
 				$sql->execute();
 
-				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+				echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+				//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
 
 			}else {
 				
