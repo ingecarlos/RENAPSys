@@ -266,7 +266,8 @@ $today = date("d-m-Y");
 				}else{
 					//datos de licencia asignada
 						$sql->execute();
-						echo json_encode($sql->fetch(PDO::FETCH_ASSOC));			
+						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));			
 				}
 			}else{
 

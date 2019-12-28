@@ -59,7 +59,8 @@ include('library/template.php');
 				$sql->bindParam(':dpi', $_GET['dpi']);
 				$sql->execute();
 
-				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+				echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+				//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
 
 			}else {
 				

@@ -6,20 +6,20 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		if( !empty($_POST['dpiHombre']) && !empty($_POST['dpiMujer']) && !empty($_POST['fecha'])){
+		if( !empty($_POST['dpihombre']) && !empty($_POST['dpimujer']) && !empty($_POST['fecha'])){
 			
 			//obtener id_persona de cada involucrado
 
-			$dpi_Hombre =  $_POST['dpiHombre'];
-			$dpi_Mujer = $_POST['dpiMujer'];
+			$dpi_Hombre =  $_POST['dpihombre'];
+			$dpi_Mujer = $_POST['dpimujer'];
 			$fecha = $_POST['fecha'];
 
-			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiHombre");
-			$sql->bindParam(':dpiHombre', $_POST['dpiHombre']);
+			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpihombre");
+			$sql->bindParam(':dpihombre', $_POST['dpihombre']);
 			$sql->execute();
 		    
-		    $sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiMujer");
-		    $sql2->bindParam(':dpiMujer', $_POST['dpiMujer']);
+		    $sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpimujer");
+		    $sql2->bindParam(':dpimujer', $_POST['dpimujer']);
 			$sql2->execute();
 
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql2->fetch(PDO::FETCH_ASSOC)) == "false"){
@@ -31,16 +31,16 @@ $today = date("d-m-Y");
 
 		    }else{
 		    	//las dos personas existen
-		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiHombre");
-				$sql3->bindParam(':dpiHombre', $_POST['dpiHombre']);
+		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpihombre");
+				$sql3->bindParam(':dpihombre', $_POST['dpihombre']);
 				$sql3->execute();
 
 				$result_hombre = $sql3->fetch(PDO::FETCH_ASSOC);
 		        $ec_hombre = $result_hombre['Estado_Civil'];
 		        //print($ec_hombre);
 
-				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiMujer");
-				$sql4->bindParam(':dpiMujer', $_POST['dpiMujer']);
+				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpimujer");
+				$sql4->bindParam(':dpimujer', $_POST['dpimujer']);
 				$sql4->execute();
 
 				$result_mujer = $sql4->fetch(PDO::FETCH_ASSOC);
@@ -49,7 +49,7 @@ $today = date("d-m-Y");
 
 		        if($ec_hombre == "casado" || $ec_mujer == "casado"){
 		        	//error -> alguno esta casado
-		        	echo "casados no se pueden casar ";
+		        	//echo "casados no se pueden casar ";
 
 		        	$arr = array('estado' => '500', 'mensaje' => 'Error en operacion');
 		    		echo json_encode($arr);
@@ -105,7 +105,7 @@ $today = date("d-m-Y");
 				$sql->bindParam(':dpi', $_GET['dpi']);
 				$sql->execute();
 
-				echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+				echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
 
 			}else {
 				
