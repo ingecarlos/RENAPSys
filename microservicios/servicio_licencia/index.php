@@ -40,7 +40,7 @@ $today = date("d-m-Y");
 				//Verificar si la persona existe - > tiene dpi o no ?
 
 				$sql = $pdo->prepare("SELECT Persona.id_persona FROM Persona WHERE Persona.dpi =:dpi");
-				$sql->bindParam(':dpi', $_POST['dpi']);
+				$sql->bindParam(':dpi', $dpi);
 				$sql->execute();
 
 
