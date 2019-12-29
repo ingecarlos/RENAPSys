@@ -7,10 +7,21 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		if( !empty($_POST['dpiPadre']) && !empty($_POST['dpiMadre']) && !empty($_POST['apellido']) &&  !empty($_POST['nombre']) &&  !empty($_POST['fechaNacimiento']) &&  !empty($_POST['genero']) &&  !empty($_POST['departamento']) &&  !empty($_POST['municipio'])){
+		$dataIn = json_decode(file_get_contents('php://input'), true);
+		$dpiPadre =  $dataIn["dpiPadre"];
+		$dpiMadre =  $dataIn["dpiMadre"];
+		$apellido =  $dataIn["apellido"];
+		$nombre =  $dataIn["nombre"];		
+		$fechaNacimiento =  $dataIn["fechaNacimiento"];		
+		$genero =  $dataIn["genero"];
+		$departamento =  $dataIn["departamento"];
+		$municipio =  $dataIn["municipio"];
+
+
+		if( !empty($dpiPadre) && !empty($dpiMadre) && !empty($apellido) &&  !empty($nombre) &&  !empty($fechaNacimiento) && !empty($genero) && !empty($departamento) && !empty($municipio)){
 			
 			//obtener datos de parametro
-
+			/*
 			$dpiPadre =  $_POST['dpiPadre'];
 			$dpiMadre = $_POST['dpiMadre'];
 			$apellido = $_POST['apellido'];
@@ -19,23 +30,23 @@ $today = date("d-m-Y");
 			$genero = $_POST['genero'];
 			$departamento = $_POST['departamento'];
 			$municipio = $_POST['municipio'];
-
+			*/
 			//comprobar que existan ambos padres para insertar 
 
 			$sql_padre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiPadre");
-			$sql_padre->bindParam(':dpiPadre', $_POST['dpiPadre']);
+			$sql_padre->bindParam(':dpiPadre', $dpiPadre);
 			$sql_padre->execute();
 
 			$sql_madre = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiMadre");
-		    $sql_madre->bindParam(':dpiMadre', $_POST['dpiMadre']);
+		    $sql_madre->bindParam(':dpiMadre', $dpiMadre);
 			$sql_madre->execute();
 
 			$sql_depto = $pdo->prepare("SELECT id_departamento FROM Departamento WHERE codigo_departamento =:departamento");
-		    $sql_depto->bindParam(':departamento', $_POST['departamento']);
+		    $sql_depto->bindParam(':departamento', $departamento);
 			$sql_depto->execute();
 
 			$sql_muni = $pdo->prepare("SELECT Municipio.id_municipio FROM Municipio, Departamento WHERE Municipio.Departamento_id_Departamento = Departamento.id_departamento and Municipio.codigo_municipio =:municipio");
-		    $sql_muni->bindParam(':municipio', $_POST['municipio']);
+		    $sql_muni->bindParam(':municipio', $municipio);
 			$sql_muni->execute();
 
 				if(json_encode($sql_padre->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql_madre->fetch(PDO::FETCH_ASSOC)) == "false"){
@@ -50,11 +61,11 @@ $today = date("d-m-Y");
 					$result_muni = $sql_muni->fetch(PDO::FETCH_ASSOC);
 		        	$id_muni = $result_muni['id_municipio'];
 		        	
-		        	print($nombre);
-		        	print($apellido);
-		        	print($fechaNacimiento);
-		        	print($genero);
-		        	print($id_muni);
+		        	//print($nombre);
+		        	//print($apellido);
+		        	//print($fechaNacimiento);
+		        	//print($genero);
+		        	//print($id_muni);
 
 		        	$soltero = "soltero";
 

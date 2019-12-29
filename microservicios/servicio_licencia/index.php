@@ -21,11 +21,21 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-			if( !empty($_POST['dpi']) && !empty($_POST['tipo']) && !empty($_POST['añosAntiguedad'])){
+
+		$dataIn = json_decode(file_get_contents('php://input'), true);
+		$dpi =  $dataIn["dpi"];
+		$tipo =  $dataIn["tipo"];
+		$añosAntiguedad = $dataIn["añosAntiguedad"];
+
+		$setActualizar = true;
+
+
+			if( !empty($dpi) && !empty($tipo) && !empty($añosAntiguedad)){
 			
-				$dpi =  $_POST['dpi'];
-				$tipo =  $_POST['tipo'];
-				$añosAntiguedad = $_POST['añosAntiguedad'];
+				$setLicencia = false;
+				//$dpi =  $_POST['dpi'];
+				//$tipo =  $_POST['tipo'];
+				//$añosAntiguedad = $_POST['añosAntiguedad'];
 
 				//Verificar si la persona existe - > tiene dpi o no ?
 
@@ -43,7 +53,7 @@ $today = date("d-m-Y");
 				    	//la persona tiene un dpi
 				    	// ¿la persona ya tiene una licencia asignada?
 				    	$sql_licencia = $pdo->prepare("SELECT Al.idAsignacion_licencia FROM Persona as P , Asignacion_licencia as Al WHERE P.DPI =:dpi AND P.id_persona = Al.Persona_id_persona");
-						$sql_licencia->bindParam(':dpi', $_POST['dpi']);
+						$sql_licencia->bindParam(':dpi', $dpi);
 						$sql_licencia->execute();
 
 						//la persona no tiene una licencia asignada
@@ -62,7 +72,7 @@ $today = date("d-m-Y");
 				        		//obtener tipo licencia
 
 				        		$sql_tipo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra =:tipo");
-								$sql_tipo->bindParam(':tipo', $_POST['tipo']);
+								$sql_tipo->bindParam(':tipo', $tipo);
 								$sql_tipo->execute();
 								$id_tipoJson = $sql_tipo->fetch(PDO::FETCH_ASSOC);
 				        		$id_tipo = $id_tipoJson['id_tipo_licencia'];
@@ -89,7 +99,7 @@ $today = date("d-m-Y");
 						}
 					}
 
-			}else if( !empty($_POST['dpi']) && !empty($_POST['tipo'])){
+			}else if(!empty($dpi) && !empty($tipo) && $setActualizar){
 
 				//Actualizar licencia
 				//Actualizar licencia de "m" a "c" y "c" a "m" -> sin problemas
@@ -98,11 +108,11 @@ $today = date("d-m-Y");
 
 				//Actualizar a licencia de "b" a "a" -> necesita 3 años en "b"
 
-				$dpi =  $_POST['dpi'];
-				$tipo =  $_POST['tipo'];
+				//$dpi =  $_POST['dpi'];
+				//$tipo =  $_POST['tipo'];
 
 				$sql2 = $pdo->prepare("SELECT Persona.id_persona FROM Persona WHERE Persona.dpi =:dpi");
-				$sql2->bindParam(':dpi', $_POST['dpi']);
+				$sql2->bindParam(':dpi', $dpi);
 				$sql2->execute();
 
 
@@ -118,7 +128,7 @@ $today = date("d-m-Y");
 				    	//la persona tiene un dpi
 				    	// ¿la persona ya tiene una licencia asignada?
 				    	$sql_licencia2 = $pdo->prepare("SELECT Al.idAsignacion_licencia, Al.Fecha_asignacion , T.Descripcion_Letra FROM Persona as P , Asignacion_licencia as Al, Tipo_Licencia as T WHERE P.DPI =:dpi AND T.id_tipo_licencia = Al.Tipo_Licencia_id_tipo_licencia AND P.id_persona = Al.Persona_id_persona");
-						$sql_licencia2->bindParam(':dpi', $_POST['dpi']);
+						$sql_licencia2->bindParam(':dpi', $dpi);
 						$sql_licencia2->execute();
 
 						if(json_encode($sql_licencia2->fetch(PDO::FETCH_ASSOC)) == "false"){
@@ -154,7 +164,7 @@ $today = date("d-m-Y");
 					        	//traer id de nuevo tipo de licencia
 
 								$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'B'");
-								$sql_tipo_nuevo->bindParam(':dpi', $_POST['dpi']);
+								$sql_tipo_nuevo->bindParam(':dpi', $dpi);
 								$sql_tipo_nuevo->execute();
 								$id_tipoJsonNuevo = $sql_tipo_nuevo->fetch(PDO::FETCH_ASSOC);
 					        	$id_tipo_Nuevo = $id_tipoJsonNuevo['id_tipo_licencia'];
@@ -173,7 +183,7 @@ $today = date("d-m-Y");
 					        	//echo "ya pasaron los tres años de b a a";
 
 					        									$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'A'");
-								$sql_tipo_nuevo->bindParam(':dpi', $_POST['dpi']);
+								$sql_tipo_nuevo->bindParam(':dpi', $dpi);
 								$sql_tipo_nuevo->execute();
 								$id_tipoJsonNuevo = $sql_tipo_nuevo->fetch(PDO::FETCH_ASSOC);
 					        	$id_tipo_Nuevo = $id_tipoJsonNuevo['id_tipo_licencia'];
@@ -192,7 +202,7 @@ $today = date("d-m-Y");
 					        	//echo "se puede cambiar de licencia de moto a vehiculo m a c ";
 
 					        	$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'C'");
-								$sql_tipo_nuevo->bindParam(':dpi', $_POST['dpi']);
+								$sql_tipo_nuevo->bindParam(':dpi', $dpi);
 								$sql_tipo_nuevo->execute();
 								$id_tipoJsonNuevo = $sql_tipo_nuevo->fetch(PDO::FETCH_ASSOC);
 					        	$id_tipo_Nuevo = $id_tipoJsonNuevo['id_tipo_licencia'];
@@ -211,7 +221,7 @@ $today = date("d-m-Y");
 					        	//echo "se puede cambiar de licencia de vehiculo a motocicleta c a m ";
 
 					        	$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'M'");
-								$sql_tipo_nuevo->bindParam(':dpi', $_POST['dpi']);
+								$sql_tipo_nuevo->bindParam(':dpi', $dpi);
 								$sql_tipo_nuevo->execute();
 								$id_tipoJsonNuevo = $sql_tipo_nuevo->fetch(PDO::FETCH_ASSOC);
 					        	$id_tipo_Nuevo = $id_tipoJsonNuevo['id_tipo_licencia'];

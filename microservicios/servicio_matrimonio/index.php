@@ -6,20 +6,27 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		if( !empty($_POST['dpihombre']) && !empty($_POST['dpimujer']) && !empty($_POST['fecha'])){
+
+		$dataIn = json_decode(file_get_contents('php://input'), true);
+		$dpihombre =  $dataIn["dpihombre"];
+		$dpimujer =  $dataIn["dpimujer"];
+		$fecha =  $dataIn["fecha"];
+
+
+		if( !empty($dpihombre) && !empty($dpimujer) && !empty($fecha)){
 			
 			//obtener id_persona de cada involucrado
 
-			$dpi_Hombre =  $_POST['dpihombre'];
-			$dpi_Mujer = $_POST['dpimujer'];
-			$fecha = $_POST['fecha'];
+			//$dpi_Hombre =  $_POST['dpihombre'];
+			//$dpi_Mujer = $_POST['dpimujer'];
+			//$fecha = $_POST['fecha'];
 
 			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpihombre");
-			$sql->bindParam(':dpihombre', $_POST['dpihombre']);
+			$sql->bindParam(':dpihombre', $dpihombre);
 			$sql->execute();
 		    
 		    $sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpimujer");
-		    $sql2->bindParam(':dpimujer', $_POST['dpimujer']);
+		    $sql2->bindParam(':dpimujer', $dpimujer);
 			$sql2->execute();
 
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql2->fetch(PDO::FETCH_ASSOC)) == "false"){
@@ -32,7 +39,7 @@ $today = date("d-m-Y");
 		    }else{
 		    	//las dos personas existen
 		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpihombre");
-				$sql3->bindParam(':dpihombre', $_POST['dpihombre']);
+				$sql3->bindParam(':dpihombre', $dpihombre);
 				$sql3->execute();
 
 				$result_hombre = $sql3->fetch(PDO::FETCH_ASSOC);
@@ -40,7 +47,7 @@ $today = date("d-m-Y");
 		        //print($ec_hombre);
 
 				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpimujer");
-				$sql4->bindParam(':dpimujer', $_POST['dpimujer']);
+				$sql4->bindParam(':dpimujer', $dpimujer);
 				$sql4->execute();
 
 				$result_mujer = $sql4->fetch(PDO::FETCH_ASSOC);
