@@ -45,7 +45,10 @@
 					break;
 				case '/setLicencia':
 					setLicencia($parametros);
-					break;				
+					break;
+				case '/setActualizar':
+					setActualizar($parametros);
+					break;
 			}
 			
 		}else{
@@ -152,6 +155,15 @@ function setLicencia($parametros){
 	sendPOST($url,$jsonData);
 }
 
+function setActualizar($parametros){
+	$url = 'http://35.232.40.193:9005';
+	$data = array(
+	    'dpi' => $parametros['dpi'],
+	    'tipo' => $parametros['tipo'],
+	);
+	$jsonData = json_encode($data);
+	sendPOST($url,$jsonData);
+}
 
 #################################################################
 function sendGET($url){
