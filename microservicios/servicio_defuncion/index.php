@@ -10,7 +10,9 @@ include('library/template.php');
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
 		print_r($dataIn);
-		echo $data["operacion"];
+		print($dataIn);
+		print($dataIn["dpi"]);
+
 
 			if( !empty($_POST['dpi']) && !empty($_POST['fecha'])){
 			$dpi =  $_POST['dpi'];
