@@ -6,20 +6,25 @@ $today = date("d-m-Y");
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-			if( !empty($_POST['dpiEsposo']) && !empty($_POST['dpiEsposa']) && !empty($_POST['fecha'])){
+		$dataIn = json_decode(file_get_contents('php://input'), true);
+		$dpiEsposo =  $dataIn["dpiEsposo"];
+		$dpiEsposa =  $dataIn["dpiEsposo"];
+		$fecha =  $dataIn["fecha"];
+
+			if( !empty($dpiEsposo) && !empty($dpiEsposa) && !empty($fecha)){
 			
 			//obtener id_persona de cada involucrado
 
-			$dpi_Hombre =  $_POST['dpiEsposo'];
-			$dpi_Mujer = $_POST['dpiEsposa'];
-			$fecha = $_POST['fecha'];
+			//$dpi_Hombre =  $_POST['dpiEsposo'];
+			//$dpi_Mujer = $_POST['dpiEsposa'];
+			//$fecha = $_POST['fecha'];
 
 			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiEsposo");
-			$sql->bindParam(':dpiEsposo', $_POST['dpiEsposo']);
+			$sql->bindParam(':dpiEsposo', $dpiEsposo);
 			$sql->execute();
 		    
 		    $sql2 = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpiEsposa");
-		    $sql2->bindParam(':dpiEsposa', $_POST['dpiEsposa']);
+		    $sql2->bindParam(':dpiEsposa', $dpiEsposa);
 			$sql2->execute();
 
 		    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false" || json_encode($sql2->fetch(PDO::FETCH_ASSOC)) == "false"){
@@ -33,7 +38,7 @@ $today = date("d-m-Y");
 		    } else{
 		    	//las dos personas existen
 		    	$sql3 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposo");
-				$sql3->bindParam(':dpiEsposo', $_POST['dpiEsposo']);
+				$sql3->bindParam(':dpiEsposo', $dpiEsposo);
 				$sql3->execute();
 
 				$result_hombre = $sql3->fetch(PDO::FETCH_ASSOC);
@@ -41,7 +46,7 @@ $today = date("d-m-Y");
 		        //print($ec_hombre);
 
 				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposo");
-				$sql4->bindParam(':dpiEsposo', $_POST['dpiEsposa']);
+				$sql4->bindParam(':dpiEsposo', $dpiEsposa);
 				$sql4->execute();
 
 				$result_mujer = $sql4->fetch(PDO::FETCH_ASSOC);
@@ -101,7 +106,7 @@ $today = date("d-m-Y");
 
 		if( !empty($_GET['dpi'])){
 
-				$dpi =  $_GET['dpi'];
+				//$dpi =  $_GET['dpi'];
 				//Verificar si ya existe un divorcio con el dpi solicitado
 				$sql = $pdo->prepare("SELECT  m.id_matrimonio as nodivorcio, m.fecha_matrimonio as fecha, esposo.DPI as dpihombre, esposo.nombre as nombrehombre, esposo.apellido as apellidohombre, esposa.dpi as dpimujer, esposa.nombre as nombremujer, esposa.apellido as apellidomujer
 										FROM Matrimonio as m, Persona as esposo, Persona as esposa
