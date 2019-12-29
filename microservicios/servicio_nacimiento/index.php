@@ -53,6 +53,10 @@ $today = date("d-m-Y");
 
 					//alguno de los padres no existe -> no insertar nacimiento
 					//echo "todo mal";
+
+					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
+		    		echo json_encode($arr);
+
 				}else{
 					//echo "todo bien";
 					
@@ -94,6 +98,8 @@ $today = date("d-m-Y");
 					$sql_nueva = $pdo->prepare("INSERT INTO Asignacion_Tutor(Persona_id_persona, Persona_id_tutora, Persona_id_tutor) VALUES('$id_hijo', '$id_tutora', '$id_tutor')");
 					$sql_nueva->execute();
 
+					$arr = array('estado' => '200', 'mensaje' => 'Ok');
+		    		echo json_encode($arr);
 					//echo "insercion";
 				}
 		    }else{
@@ -132,8 +138,19 @@ $today = date("d-m-Y");
 
 				}else{
 					//datos de nacimiento asignada
+						//$sql->execute();
+						//echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+
+					
+						$rows = $sql->fetch(PDO::FETCH_ASSOC);
 						$sql->execute();
-						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
+						while( $row = $sql->fetch(PDO::FETCH_ASSOC)) {
+									$json[] = $row;
+						}
+						
+						echo json_encode( $json, JSON_NUMERIC_CHECK);
+
+
 						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));	
 						exit();		
 				}
