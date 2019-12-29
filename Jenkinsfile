@@ -42,7 +42,7 @@ pipeline {
                 echo 'Cliente Interno'
                 sh 'docker build -t interno ./RENAPSys/'
                 sh 'docker stop interno-running || true && docker rm interno-running || true'
-                sh 'docker run --name interno-running -p 10000:80 -d interno'
+                sh 'docker run --name interno-running -p 9006:80 -d interno'
 
             }
         }
