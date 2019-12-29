@@ -8,7 +8,7 @@ $today = date("d-m-Y");
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
 		$dpiEsposo =  $dataIn["dpiEsposo"];
-		$dpiEsposa =  $dataIn["dpiEsposo"];
+		$dpiEsposa =  $dataIn["dpiEsposa"];
 		$fecha =  $dataIn["fecha"];
 
 			if( !empty($dpiEsposo) && !empty($dpiEsposa) && !empty($fecha)){
