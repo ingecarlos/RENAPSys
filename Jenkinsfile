@@ -34,6 +34,11 @@ pipeline {
                 sh 'docker stop servicio_licencia-running || true && docker rm servicio_licencia-running || true'
                 sh 'docker run --name servicio_licencia-running -p 9005:80 -d servicio_licencia'
 
+                echo 'servicio esb'
+                sh 'docker build -t servicio_esb ./microservicios/servicio_esb/'
+                sh 'docker stop servicio_esb-running || true && docker rm servicio_esb-running || true'
+                sh 'docker run --name servicio_esb-running -p 10000:80 -d servicio_esb'
+
                 echo 'Cliente Interno'
                 sh 'docker build -t interno ./RENAPSys/'
                 sh 'docker stop interno-running || true && docker rm interno-running || true'
