@@ -80,7 +80,7 @@ $today = date("d-m-Y");
 				    $sql7->execute();
 
 				    //retornar mensaje
-				    $arr = array('estado' => '400', 'mensaje' => 'Ok');
+				    $arr = array('estado' => '200', 'mensaje' => 'Ok');
 		    		echo json_encode($arr);
 				    exit();
 

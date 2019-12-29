@@ -24,7 +24,6 @@ include('library/template.php');
 			}else{
 				//acta si existe, por lo tanto verificar si ya tiene dpi 
 
-
 				$sql_persona = $pdo->prepare("SELECT P.DPI as dpi
 									FROM Asignacion_Tutor as AsigT, Persona as P
 									WHERE AsigT.id_asignacion_tutor = :numeroActa
@@ -42,7 +41,31 @@ include('library/template.php');
 		        	// no tiene dpi por lo tanto proseguir
 		        	//echo "sin dpi";
 
-		        	
+		        	//para generar el dpi se necesita de los valores de :
+		        	//codigo de departamento
+		        	//codigo de municipio
+		        	//id_persona
+
+		        	$sql->execute();
+		        	$result2 = $sql->fetch(PDO::FETCH_ASSOC);
+		        	$id_persona = $result2['id_persona'];  // <--- id_persona
+
+		        	$sql_muni = $pdo->prepare("SELECT M.codigo_municipio as codigomuni
+												FROM Municipio as M , Persona as P
+												WHERE P.Municipio_id_municipio = M.id_municipio
+												AND P.id_persona = :id_persona");
+
+					$sql_muni->bindParam(':id_persona', $id_persona);
+					$sql_muni->execute();
+
+					$result3 = $sql_muni->fetch(PDO::FETCH_ASSOC);
+		        	$codigo_municipio = $result3['codigomuni']; // <- codigo de muni
+
+		        	// una vez obtenidos estos valores se genera un numero siguiente en base al ultimo dpi creado + 1 
+
+
+
+
 
 		        	$arr = array('estado' => '200', 'mensaje' => 'Ok');
 		    		echo json_encode($arr);

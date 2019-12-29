@@ -116,7 +116,7 @@ $today = date("d-m-Y");
 
 				$sql = $pdo->prepare("SELECT AsigT.id_asignacion_tutor as noacta, Hijo.Apellido as apellidos, Hijo.Nombre as nombre, 
 									Tutor.DPI as dpipadre, Tutor.Nombre as nombrepadre, Tutor.Apellido as apellidopadre, 
-									Tutora.Nombre as dpimadre, Tutora.Apellido as apellidomadre, Tutora.Nombre as nombremadre,
+									Tutora.DPI as dpimadre, Tutora.Apellido as apellidomadre, Tutora.Nombre as nombremadre,
 									Hijo.Fecha_nacimiento as fechanac, Dept.Nombre_departamento as departamento, Muni.Nombre_municipio as municipio,
 									Hijo.Genero as genero
 									FROM Asignacion_Tutor as AsigT, Persona as Tutor, Persona as Tutora, Persona as Hijo , Departamento as Dept , Municipio as Muni
