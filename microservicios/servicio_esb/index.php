@@ -166,15 +166,7 @@ function setActualizar($parametros){
 
 #################################################################
 function sendGET($url){
-	echo "estoy en el get</br>";
-
-	try {
-		$curl = curl_init();
-	} catch (Exception $e) {
-    	echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-	}
-		
-	echo "hice curl init</br>";
+	$curl = curl_init();
 	curl_setopt_array($curl, array(
 	  CURLOPT_URL => $url,
 	  CURLOPT_RETURNTRANSFER => true,
@@ -185,11 +177,8 @@ function sendGET($url){
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => "GET",
 	));
-	echo "agregé el array de configuracion</br>";
 	$response = curl_exec($curl);
-	echo "ejecute el curl</br>";
 	curl_close($curl);
-	echo "cerré el curl </br>";
 	echo $response;
 }
 
