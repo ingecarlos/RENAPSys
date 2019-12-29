@@ -125,8 +125,16 @@ $today = date("d-m-Y");
 
 				}else{
 					//datos de divorcio asignado
+						//$sql->execute();
+						//echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );	
+
+						$rows = $sql->fetch(PDO::FETCH_ASSOC);
 						$sql->execute();
-						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );		
+						while( $row = $sql->fetch(PDO::FETCH_ASSOC)) {
+									$json[] = $row;
+						}
+						
+						echo json_encode( $json, JSON_NUMERIC_CHECK);	
 				}
 
 			}else {
