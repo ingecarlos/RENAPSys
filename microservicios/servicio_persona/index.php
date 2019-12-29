@@ -1,5 +1,6 @@
 <?php
 include('library/template.php');
+
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
@@ -61,7 +62,12 @@ include('library/template.php');
 					$result3 = $sql_muni->fetch(PDO::FETCH_ASSOC);
 		        	$codigo_municipio = $result3['codigomuni']; // <- codigo de muni
 
-		        	// una vez obtenidos estos valores se genera un numero siguiente en base al ultimo dpi creado + 1 
+		        	// una vez obtenidos estos valores se genera un numero random entre 1111 11111 y 9999 99999 adherido al codigo de muni
+		        	// consultar que el dpi no existe
+		        	// si existe volver a generar hasta que se cree uno inexistente
+
+		        	$nbase_dpi = rand(100000000,999999999);
+		        	echo $nbase_dpi;
 
 
 
