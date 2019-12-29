@@ -126,7 +126,7 @@ $today = date("d-m-Y");
 
 			}else {
 				
-				arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
 		    	echo json_encode($arr);
 			}
 	}

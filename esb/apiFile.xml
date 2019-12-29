@@ -1,0 +1,125 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="RENAPSys" context="/post">
+   
+   <resource methods="POST" uri-template="/comunicacionesb*">
+      <inSequence>
+         <property name="uri.var.url" expression="json-eval($.url)" scope="default" type="STRING"/>
+         <switch source="json-eval($.url)">
+            <!-- MICROSERVICIO NACIMIENTO-->
+            <!-- GET-->
+            <case regex="/getNacimiento">
+               <property name="uri.var.dpiPadreMadre" expression="json-eval($.parametros.dpiPadreMadre)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9000','/?dpiPadreMadre=',get-property('uri.var.dpiPadreMadre'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getNacimiento"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+            <!-- MICROSERVICIO MATRIMONIO-->
+            <!-- GET -->
+            <case regex="/getMatrimonio">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9001','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getMatrimonio"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+            <!-- POST -->
+            <case regex="/setMatrimonio">
+               <property name="uri.var.dpiHombre" expression="json-eval($.parametros.dpiHombre)" scope="default" type="STRING"/>
+               <property name="uri.var.dpiMujer" expression="json-eval($.parametros.dpiMujer)" scope="default" type="STRING"/>
+               <property name="uri.var.fecha" expression="json-eval($.parametros.fecha)" scope="default" type="STRING"/>
+
+               <property name="uri.var.urlToSend" value="http://35.232.40.193:9001" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="setMatrimonio"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+            <!-- MICROSERVICIO DEFUNCION-->
+            <!-- GET -->
+            <case regex="/getDefuncion">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9002','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getMatrimonio"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+            <!-- MICROSERVICIO DIVORCIOS-->
+            <!-- GET -->
+            <case regex="/getDivorcios">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9003','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getDivorcios"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+            <!-- MICROSERVICIO DPI-->
+            <!-- GET -->
+            <case regex="/getDPI">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9004','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getDPI"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+            <!-- MICROSERVICIO LICENCIA-->
+            <!-- GET -->
+            <case regex="/getLicencia">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9005','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <log>
+                  <property name="servicio" value="getLicencia"/>
+                  <property name="url" expression="get-property('uri.var.urlToSend')"/>
+               </log>
+               <send>
+                  <endpoint>
+                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                  </endpoint>
+               </send>
+            </case>
+
+
+         </switch>
+      </inSequence>
+   </resource>
+
+</api>
