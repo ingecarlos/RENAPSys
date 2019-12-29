@@ -2,20 +2,15 @@
 	include('library/template.php');
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-		echo "entro al post";
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		print_r($dataIn);
 		if( isset($dataIn['url']) && isset($dataIn['tipo'])&& isset($dataIn['parametros'])){
-			echo "entro al if de que todos los parametros estan bien";
 			$url = $dataIn['url'];
 			$tipo =  $dataIn['tipo'];
 			$parametros =  $dataIn["parametros"];
-			echo "asignó los parametros";
 
 			switch ($url) {
 				#Nacimiento
 				case '/getNacimiento':
-					echo "entró al case-switch";
 					getNacimiento($parametros);
 					break;
 				case '/setNacimiento':
@@ -67,12 +62,9 @@
 
 #################### NACIMIENTO ############################
 function getNacimiento($parametros){
-	echo "entró a la funcion";
 	$url = 'http://35.232.40.193:9000/?';
 	$url = $url.'dpiPadreMadre='.$parametros['dpiPadreMadre'];
-	echo "va a hacer el get";
 	sendGET($url);
-	echo "hizo el get";
 }
 
 function setNacimiento($parametros){
@@ -175,7 +167,13 @@ function setActualizar($parametros){
 #################################################################
 function sendGET($url){
 	echo "estoy en el get</br>";
-	$curl = curl_init();
+
+	try {
+		$curl = curl_init();
+	} catch (Exception $e) {
+    	echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+	}
+		
 	echo "hice curl init</br>";
 	curl_setopt_array($curl, array(
 	  CURLOPT_URL => $url,
