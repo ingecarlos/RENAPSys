@@ -29,8 +29,9 @@ $today = date("d-m-Y");
 
 		$setActualizar = true;
 
+		//echo $añosAntiguedad;
 
-			if( !empty($dpi) && !empty($tipo) && !empty($añosAntiguedad)){
+			if( !empty($dpi) && !empty($tipo) && isset($añosAntiguedad)){
 			
 				$setLicencia = false;
 				//$dpi =  $_POST['dpi'];
