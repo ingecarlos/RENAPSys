@@ -1,11 +1,16 @@
 <?php
 include('library/template.php');
 
+
 //$today = date("d-m-Y"); 
 //Servicio de Defuncion - setDefuncion 
 
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+		$dataIn = json_decode(file_get_contents('php://input'), true);
+		print_r($dataIn);
+		echo $data["operacion"];
 
 			if( !empty($_POST['dpi']) && !empty($_POST['fecha'])){
 			$dpi =  $_POST['dpi'];
