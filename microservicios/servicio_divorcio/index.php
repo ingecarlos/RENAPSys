@@ -45,8 +45,8 @@ $today = date("d-m-Y");
 		        $ec_hombre = $result_hombre['Estado_Civil'];
 		        //print($ec_hombre);
 
-				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposo");
-				$sql4->bindParam(':dpiEsposo', $dpiEsposa);
+				$sql4 = $pdo->prepare("SELECT Estado_Civil FROM Persona WHERE dpi =:dpiEsposa");
+				$sql4->bindParam(':dpiEsposa', $dpiEsposa);
 				$sql4->execute();
 
 				$result_mujer = $sql4->fetch(PDO::FETCH_ASSOC);
