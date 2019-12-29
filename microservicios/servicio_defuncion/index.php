@@ -11,11 +11,12 @@ include('library/template.php');
 		$dataIn = json_decode(file_get_contents('php://input'), true);
 		$dpi =  $dataIn["dpi"];
 		$fecha =  $dataIn["fecha"];
+
 		if( !empty($dpi) && !empty($fecha)){
 			
 			//Verificar si ya existe una defuncion con el dpi solicitado
 			$sql = $pdo->prepare("SELECT Persona.id_persona FROM Defuncion, Persona WHERE Persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
-			$sql->bindParam(':dpi', $_POST['dpi']);
+			$sql->bindParam(':dpi', $dpi);
 			$sql->execute();
 
 				//el dpi solicitado no tiene defuncion asignada -> insertar defuncion codigo 200
