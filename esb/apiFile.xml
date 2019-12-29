@@ -35,15 +35,14 @@
                   </endpoint>
                </send>
             </case>
-            <!-- POST -->
-            <case regex="/setMatrimonio">
-               <property name="uri.var.dpiHombre" expression="json-eval($.parametros.dpiHombre)" scope="default" type="STRING"/>
-               <property name="uri.var.dpiMujer" expression="json-eval($.parametros.dpiMujer)" scope="default" type="STRING"/>
-               <property name="uri.var.fecha" expression="json-eval($.parametros.fecha)" scope="default" type="STRING"/>
 
-               <property name="uri.var.urlToSend" value="http://35.232.40.193:9001" scope="default" type="STRING"/>
+            <!-- MICROSERVICIO DEFUNCION-->
+            <!-- GET -->
+            <case regex="/getDefuncion">
+               <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9002','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
                <log>
-                  <property name="servicio" value="setMatrimonio"/>
+                  <property name="servicio" value="getDefuncion"/>
                   <property name="url" expression="get-property('uri.var.urlToSend')"/>
                </log>
                <send>
@@ -52,19 +51,18 @@
                   </endpoint>
                </send>
             </case>
-
-            <!-- MICROSERVICIO DEFUNCION-->
-            <!-- GET -->
-            <case regex="/getDefuncion">
+            <!-- POST -->
+            <case regex="/setDefuncion">
                <property name="uri.var.dpi" expression="json-eval($.parametros.dpi)" scope="default" type="STRING"/>
-               <property name="uri.var.urlToSend" expression="fn:concat('http://35.232.40.193:9002','/?dpi=',get-property('uri.var.dpi'))" scope="default" type="STRING"/>
+               <property name="uri.var.fecha" expression="json-eval($.parametros.fecha)" scope="default" type="STRING"/>
+               <property name="uri.var.urlToSend" value="http://35.232.40.193:9002" scope="default" type="STRING"/>
                <log>
-                  <property name="servicio" value="getMatrimonio"/>
+                  <property name="servicio" value="setDefuncion"/>
                   <property name="url" expression="get-property('uri.var.urlToSend')"/>
                </log>
                <send>
                   <endpoint>
-                     <http method="GET" uri-template="{uri.var.urlToSend}"/>
+                     <http method="POST" uri-template="{uri.var.urlToSend}"/>
                   </endpoint>
                </send>
             </case>
