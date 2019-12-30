@@ -69,18 +69,18 @@
 #################### NACIMIENTO ############################
 function getNacimiento($parametros){
 	$url = 'http://35.232.40.193:9000/?';
-	$url = $url.'dpipadremadre='.$parametros['dpipadremadre'];
+	$url = $url.'dpiPadreMadre='.$parametros['dpipadremadre'];
 	sendGET($url);
 }
 
 function setNacimiento($parametros){
 	$url = 'http://35.232.40.193:9000';
 	$data = array(
-	    'dpipadre' => $parametros['dpipadre'],
-	    'dpimadre' => $parametros['dpimadre'],
+	    'dpiPadre' => $parametros['dpipadre'],
+	    'dpiMadre' => $parametros['dpimadre'],
 	    'apellido' => $parametros['apellido'],
 	    'nombre' => $parametros['nombre'],
-	    'fechanacimiento' => $parametros['fechanacimiento'],
+	    'fechaNacimiento' => $parametros['fechanacimiento'],
 	    'genero' => $parametros['genero'],
 	    'departamento' => $parametros['departamento'],
 	    'municipio' => $parametros['municipio']
@@ -134,8 +134,8 @@ function getDivorcios($parametros){
 function setDivorcio($parametros){
 	$url = 'http://35.232.40.193:9003';
 	$data = array(
-	    'dpiesposo' => $parametros['dpiesposo'],
-	    'dpiesposa' => $parametros['dpiesposa'],
+	    'dpiEsposo' => $parametros['dpiesposo'],
+	    'dpiEsposa' => $parametros['dpiesposa'],
 	    'fecha' => $parametros['fecha']
 	);
 	$jsonData = json_encode($data);
@@ -152,7 +152,7 @@ function getDPI($parametros){
 function setDPI($parametros){
 	$url = 'http://35.232.40.193:9004';
 	$data = array(
-	    'numeroacta' => $parametros['numeroActa']
+	    'numeroActa' => $parametros['numeroActa']
 	);
 	$jsonData = json_encode($data);
 	sendPOST($url,$jsonData);
@@ -170,7 +170,7 @@ function setLicencia($parametros){
 	$data = array(
 	    'dpi' => $parametros['dpi'],
 	    'tipo' => $parametros['tipo'],
-	    'añosantiguedad' => $parametros['añosantiguedad']
+	    'añosAntiguedad' => $parametros['añosantiguedad']
 	);
 	$jsonData = json_encode($data);
 	sendPOST($url,$jsonData);
