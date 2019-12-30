@@ -1,5 +1,5 @@
 <?php
-	include('library/template.php');
+	include('../../library/template.php');
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$dataIn = json_decode(file_get_contents('php://input'), true);
