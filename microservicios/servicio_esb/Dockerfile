@@ -12,6 +12,7 @@ RUN rm -R /var/www/html
 
 ADD . /var/www/html/
 ADD apache2.conf /etc/apache2/apache2.conf
+CMD ["a2enmod","rewrite"]
 WORKDIR /var/www/html
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 EXPOSE 80
