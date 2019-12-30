@@ -10,48 +10,48 @@
 
 			switch ($url) {
 				#Nacimiento
-				case '/getnacimiento':
+				case 'getnacimiento':
 					getNacimiento($parametros);
 					break;
-				case '/setnacimiento':
+				case 'setnacimiento':
 					setNacimiento($parametros);
 					break;
 				#Matrimonio
-				case '/getmatrimonio':
+				case 'getmatrimonio':
 					getMatrimonio($parametros);
 					break;
-				case '/setmatrimonio':
+				case 'setmatrimonio':
 					setMatrimonio($parametros);
 					break;
 				#Defuncion
-				case '/getdefuncion':
+				case 'getdefuncion':
 					getDefuncion($parametros);
 					break;
-				case '/setdefuncion':
+				case 'setdefuncion':
 					setDefuncion($parametros);
 					break;
 				#Divorcio
-				case '/getdivorcios':
+				case 'getdivorcios':
 					getDivorcios($parametros);
 					break;
-				case '/setdivorcio':
+				case 'setdivorcio':
 					setDivorcio($parametros);
 					break;
 				#DPI
-				case '/getdpi':
+				case 'getdpi':
 					getDPI($parametros);
 					break;
-				case '/setdpi':
+				case 'setdpi':
 					setDPI($parametros);
 					break;
 				#Licencia
-				case '/getlicencia':
+				case 'getlicencia':
 					getLicencia($parametros);
 					break;
-				case '/setlicencia':
+				case 'setlicencia':
 					setLicencia($parametros);
 					break;
-				case '/setactualizar':
+				case 'setactualizar':
 					setActualizar($parametros);
 					break;
 			}
