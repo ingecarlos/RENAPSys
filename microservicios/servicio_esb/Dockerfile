@@ -13,4 +13,5 @@ RUN rm -R /var/www/html
 ADD . /var/www/html/
 WORKDIR /var/www/html
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["cp","/var/www/html/apache2.conf","/etc/apache2/apache2.conf"]
 EXPOSE 80
