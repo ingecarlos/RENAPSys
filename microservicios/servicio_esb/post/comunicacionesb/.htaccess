@@ -1,5 +1,5 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteRule ^post/comunicacionesb.*$ http://35.232.40.193:10000/post/comunicacionesb/ [R=301,L]
+RewriteRule ^post/comunicacionesb$ http://35.232.40.193:10000/post/comunicacionesb/ [R=301,L]
 
 DirectoryIndex index.php
