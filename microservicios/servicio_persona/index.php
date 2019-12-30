@@ -54,7 +54,7 @@ $today = date("d-m-Y");
 		        $fecha_nueva = new DateTime($today);
 				$fecha_vieja = new DateTime($fecha_nacimiento);
 				$intervalo = date_diff($fecha_vieja, $fecha_nueva);
-				echo $intervalo->format('%a days');
+				//echo $intervalo->format('%a days');
 
 
 
