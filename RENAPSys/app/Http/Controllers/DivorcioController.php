@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
+use Illuminate\Support\Facades\View;
 
 class DivorcioController extends Controller
 {
-    private $host = '35.232.40.193';
+    private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+
     public function __construct()
     {
 
@@ -22,6 +24,7 @@ class DivorcioController extends Controller
     public function store(Request $request)
     {
         $client = new \GuzzleHttp\Client();
+        /*
         $response = $client->request('POST',  $this->host.':9003/', [
         'form_params' => [
             'dpiEsposo' => $request->input('dpih'),
@@ -34,7 +37,32 @@ class DivorcioController extends Controller
         echo '<pre>';        
         print_r($response);        
         //print_r($response2);        
-        return Redirect::to("/info")->withSuccess('bien hecho!');                
+        return Redirect::to("/info")->withSuccess('bien hecho!');    
+        */
+        
+        $response = $client->request('POST', $this->host, [
+            'json' => [
+                'url' => '/setDivorcio',
+                'tipo' => 'POST',
+                'parametros' =>
+                             array(
+                                'dpiEsposo' => $request->input('dpih'),
+                                'dpiEsposa' => $request->input('dpim'),
+                                'fecha' => $request->input('fecham')  
+                             )
+                ]
+            ]);
+
+            $res = (string) $response->getBody();
+            $json = json_decode($res); 
+            $est = $json->estado;
+            $msj = $json->mensaje;
+
+            if($est=="200"){
+                return Redirect::to("/divorcio")->withSuccess('Registro almacenado.');  
+            }else{
+                return View::make('info')->with('est', $est)->with('msj', $msj);
+            } 
         
         
     }

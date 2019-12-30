@@ -66,9 +66,12 @@
                     <div class="alert alert-success">
                         {{Session::get('success')}}
                     </div>
-                @endif
-                
-                
+                @endif                                
+            </div>
+
+            <div class="col-sm-10">          
+                <label class="col-10" for="faños">Error {{$est}}</label>                
+                <label class="col-10" for="faños">{{$msj}}</label>                
             </div>
         </div>
     </body>
