@@ -1,5 +1,6 @@
 <?php
 include('library/template.php');
+$today = date("d-m-Y"); 
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -23,7 +24,8 @@ include('library/template.php');
 					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
 		    		echo json_encode($arr);
 			}else{
-				//acta si existe, por lo tanto verificar si ya tiene dpi 
+
+				//acta si existe, por lo tanto verificar si ya tiene dpi y es mayor de 18 años 
 
 				$sql_persona = $pdo->prepare("SELECT P.DPI as dpi
 									FROM Asignacion_Tutor as AsigT, Persona as P
@@ -37,8 +39,27 @@ include('library/template.php');
 		        
 		        //echo $dpi_persona;
 
+		        $sql_persona_edad = $pdo->prepare("SELECT P.Fecha_nacimiento as Fecha_nacimiento
+									FROM Asignacion_Tutor as AsigT, Persona as P
+									WHERE AsigT.id_asignacion_tutor = :numeroActa
+									AND P.id_persona = AsigT.Persona_id_persona");
+				$sql_persona_edad->bindParam(':numeroActa', $numeroActa);
+				$sql_persona_edad->execute();
 
-		        if($dpi_persona == null){
+				$res = $sql_persona_edad->fetch(PDO::FETCH_ASSOC);
+		        $fecha_nacimiento = $res['Fecha_nacimiento'];
+
+
+		        //calcular su edad
+		        $fecha_nueva = new DateTime($today);
+				$fecha_vieja = new DateTime($fecha_nacimiento);
+				$intervalo = date_diff($fecha_vieja, $fecha_nueva);
+				echo $intervalo->format('%a days');
+
+
+
+				// si no tiene dpi y es mayor de 18 años -> generar dpi
+		        if($dpi_persona == null && (int)$intervalo->format('%a')>6570){
 		        	// no tiene dpi por lo tanto proseguir
 		        	//echo "sin dpi";
 
@@ -67,18 +88,58 @@ include('library/template.php');
 		        	// si existe volver a generar hasta que se cree uno inexistente
 
 		        	$nbase_dpi = rand(100000000,999999999);
-		        	echo $nbase_dpi;
+		        	$n_dpi = strval($nbase_dpi) .  strval($codigo_municipio);
+		        	//echo $n_dpi;
 
+		        	
+		        	$sql_dpi_consulta = $pdo->prepare("SELECT P.id_persona as id_persona
+											FROM Persona as P
+											WHERE P.DPI =:nuevo_dpi");
+					$sql_dpi_consulta->bindParam(':nuevo_dpi', $n_dpi);
+					$sql_dpi_consulta->execute();
 
+					if(json_encode($sql_dpi_consulta->fetch(PDO::FETCH_ASSOC)) == "false"){
+						// no hay dpi existente -> dar ese dpi a la persona
 
+						$sql_update_dpi = $pdo->prepare("UPDATE Persona SET DPI = '$n_dpi' WHERE Persona.id_persona = '$id_persona'");
+				    	$sql_update_dpi->execute();
 
+		        		$arr = array('estado' => '200', 'mensaje' => 'Ok');
+		    			echo json_encode($arr);
 
-		        	$arr = array('estado' => '200', 'mensaje' => 'Ok');
-		    		echo json_encode($arr);
+					}else{
+						//el dpi existe -> volver a generar -> consultar y condicionales
+						
+						$bandera = true;
+
+						while($bandera){
+							//volver a calcular
+							$nbase_dpi = rand(100000000,999999999);
+							$n_dpi = strval($nbase_dpi) .  strval($codigo_municipio);
+
+							$sql_dpi_consulta->execute();
+							// el dpi no existe -> insertar 
+							if(json_encode($sql_dpi_consulta->fetch(PDO::FETCH_ASSOC)) == "false"){
+
+								$bandera = false;
+								$sql_update_dpi = $pdo->prepare("UPDATE Persona SET DPI = '$n_dpi' WHERE Persona.id_persona = '$id_persona'");
+				    			$sql_update_dpi->execute();
+
+				        		$arr = array('estado' => '200', 'mensaje' => 'Ok');
+				    			echo json_encode($arr);
+
+							}else{
+								// el dpi existe, volver a calcular 
+
+							}
+
+						}
+
+					}					
 
 		        }else{
 
-		        	// tiene dpi, no se le puede generar nada mas 
+		        	// tiene dpi y mas de 18 , no se le puede generar nada mas 
 					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
 		    		echo json_encode($arr);
 
@@ -87,8 +148,6 @@ include('library/template.php');
 				//$sql->execute();
 				//echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
 			}
-
-
 
 		}else{
 			// no se enviaron los parametros
