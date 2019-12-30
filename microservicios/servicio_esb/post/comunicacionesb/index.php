@@ -1,14 +1,19 @@
 <?php
+	$host='';
+	
 	include('library/template.php');
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$dataIn = json_decode(file_get_contents('php://input'), true);
 		if( isset($dataIn['url']) && isset($dataIn['tipo'])&& isset($dataIn['parametros'])){
 			$url = $dataIn['url'];
+			$host = explode('/',$url)[2];
+			$servicio = explode('/',$url)[3];
+
 			$tipo =  $dataIn['tipo'];
 			$parametros =  $dataIn["parametros"];
 
-			switch ($url) {
+			switch ($servicio) {
 				#Nacimiento
 				case 'getNacimiento':
 					getNacimiento($parametros);
