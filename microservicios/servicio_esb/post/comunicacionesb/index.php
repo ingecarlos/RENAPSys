@@ -38,6 +38,12 @@
 					setDivorcio($parametros);
 					break;
 				#DPI
+				case '/getDPI':
+					getDPI($parametros);
+					break;
+				case '/setDPI':
+					setDPI($parametros);
+					break;
 				#Licencia
 				case '/getLicencia':
 					getLicencia($parametros);
@@ -131,6 +137,22 @@ function setDivorcio($parametros){
 	    'dpiEsposo' => $parametros['dpiEsposo'],
 	    'dpiEsposa' => $parametros['dpiEsposa'],
 	    'fecha' => $parametros['fecha']
+	);
+	$jsonData = json_encode($data);
+	sendPOST($url,$jsonData);
+}
+
+#################### DPI ############################
+function getDPI($parametros){
+	$url = 'http://35.232.40.193:9004/?';
+	$url = $url.'dpi='.$parametros['dpi'];
+	sendGET($url);
+}
+
+function setDPI($parametros){
+	$url = 'http://35.232.40.193:9004';
+	$data = array(
+	    'numeroActa' => $parametros['numeroActa']
 	);
 	$jsonData = json_encode($data);
 	sendPOST($url,$jsonData);
