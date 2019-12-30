@@ -4,16 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Home</title>
+        <title>DPI</title>
 
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #636b6f;
+                background-color: #E6E6E6;
+                color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -56,13 +57,39 @@
         </style>
     </head>
     <body>        
+    <div class="flex-center position-ref full-height">         
+            <div class="top-right links">             
+                <a href="{{ url('/') }}">Regresar</a>                                                                
+            </div>
             <div class="content">
-                <div class="title m-b-md">
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif  
+            <div class="title m-b-xs">
                     DPI
-                </div>
+            </div> 
 
-                
-                </div>
+                <form action="{{ url('licencia') }}" method="post" accept-charset="utf-8">
+                  @csrf
+                  <div class="contact-form">                  
+                     <div class="form-group">
+                                           
+                        <div class="col-sm-10">          
+                            <label class="col-6" for="fdpi">DPI:</label>
+                            <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
+                            <span class="text-danger">{{ $errors->first('dpi') }}</span>
+                        </div>                                                
+                        <br>                                                              
+                     <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">                            
+                            <button type="submit" class="btn btn-dark">Guardar</button>
+                        </div>
+                     </div>                     
+
+                  </div>
+               </form>                                
             </div>
         </div>
     </body>

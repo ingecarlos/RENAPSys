@@ -29,6 +29,11 @@ pipeline {
                 sh 'docker stop servicio_divorcio-running || true && docker rm servicio_divorcio-running || true'
                 sh 'docker run --name servicio_divorcio-running -p 9003:80 -d servicio_divorcio'
 
+                echo 'servicio DPI'
+                sh 'docker build -t servicio_dpi ./microservicios/servicio_persona/'
+                sh 'docker stop servicio_dpi-running || true && docker rm servicio_dpi-running || true'
+                sh 'docker run --name servicio_dpi-running -p 9003:80 -d servicio_dpi'
+
                 echo 'servicio licencia'
                 sh 'docker build -t servicio_licencia ./microservicios/servicio_licencia/'
                 sh 'docker stop servicio_licencia-running || true && docker rm servicio_licencia-running || true'

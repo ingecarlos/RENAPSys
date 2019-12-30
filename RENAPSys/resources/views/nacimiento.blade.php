@@ -102,7 +102,7 @@
                         
                         <div class="col-sm-10">          
                             <label class="col-8" for="fecha">Fecha de nacimiento:</label>
-                            <input type="text" class="form-control" id="fechaf" placeholder="Fecha nac" name="fecha">
+                            <input type="text" class="form-control" id="fechaf" placeholder="Fecha nac" name="fechaf">
                             <span class="text-danger">{{ $errors->first('fecha') }}</span>
                         </div>
                         

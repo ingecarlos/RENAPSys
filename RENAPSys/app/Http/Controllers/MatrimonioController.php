@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
+use Illuminate\Support\Facades\View;
 
 class MatrimonioController extends Controller
 {
-    private $host = '35.232.40.193';
+    private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
 
     public function __construct()
     {
@@ -22,7 +23,8 @@ class MatrimonioController extends Controller
 
     public function store(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client();        
+        /*
         $response = $client->request('POST', $this->host.':9001/', [
         'form_params' => [
             'dpiHombre' => $request->input('dpih'),
@@ -34,7 +36,31 @@ class MatrimonioController extends Controller
         return Redirect::to("/info")->withSuccess('Bien hecho!'); 
         echo '<pre>';
         print_r($response);
-        
+        */
+
+        $response = $client->request('POST', $this->host, [
+            'json' => [
+                'url' => '/setMatrimonio',
+                'tipo' => 'POST',
+                'parametros' =>
+                             array(
+                                'dpihombre' => $request->input('dpih'),
+                                'dpimujer' => $request->input('dpim'),
+                                'fecha' => $request->input('fecham')
+                             )
+                ]   
+            ]);
+
+            $res = (string) $response->getBody();
+            $json = json_decode($res); 
+            $est = $json->estado;
+            $msj = $json->mensaje;
+
+            if($est=="200"){
+                return Redirect::to("/matrimonio")->withSuccess('Registro almacenado.');  
+            }else{
+                return View::make('info')->with('est', $est)->with('msj', $msj);
+            } 
         
     }
 }
