@@ -32,7 +32,7 @@ pipeline {
                 echo 'servicio DPI'
                 sh 'docker build -t servicio_dpi ./microservicios/servicio_persona/'
                 sh 'docker stop servicio_dpi-running || true && docker rm servicio_dpi-running || true'
-                sh 'docker run --name servicio_dpi-running -p 9003:80 -d servicio_dpi'
+                sh 'docker run --name servicio_dpi-running -p 9004:80 -d servicio_dpi'
 
                 echo 'servicio licencia'
                 sh 'docker build -t servicio_licencia ./microservicios/servicio_licencia/'
