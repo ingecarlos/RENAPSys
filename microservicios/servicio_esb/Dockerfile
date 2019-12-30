@@ -11,6 +11,7 @@ RUN apt-get install -y php-curl php-dev php-bcmath php-json php-json-schema php-
 RUN rm -R /var/www/html
 
 ADD . /var/www/html/
+ADD apache2.conf /etc/apache2/apache2.conf
 WORKDIR /var/www/html
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 EXPOSE 80
