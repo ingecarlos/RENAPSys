@@ -1,4 +1,1 @@
-Alias /post/comunicacionesb "/var/www/html/post/comunicacionesb/index.php"
-Alias /prueba "/var/www/html/post/comunicacionesb/index.php"
-
 DirectoryIndex index.php
