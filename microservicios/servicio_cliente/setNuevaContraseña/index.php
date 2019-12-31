@@ -7,10 +7,14 @@ include('library/template.php');
 		//servicio de generacion de contraseña
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		$dpi =  $dataIn["dpi"];
 
-		if( !empty($dpi)){
+
+		//QUEDA PENDIENTE LO DE CORREO ELECTRONICO -> ENVIAR CORREO AL PARAMETRO 
+		if( isset($dataIn["dpi"]) && isset($dataIn["correo"])){
 			//verificar que el dpi exista y no tenga contraseña
+
+			$dpi =  $dataIn["dpi"];
+
 
 			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE DPI =:dpi");
 			$sql->bindParam(':dpi', $dpi);
@@ -67,45 +71,10 @@ include('library/template.php');
 
 		}else{
 				
-			$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
-		    echo json_encode($arr);
-		}
-
-	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
-		// servicio cliente -> getLogin
-
-			if( !empty($_GET['dpi']) && !empty($_GET['clave'])){
-
-				$dpi =  $_GET['dpi'];
-				$clave =  $_GET['clave'];
-
-				//verificar que exista la persona y que contenga dpi 
-				$sql = $pdo->prepare("SELECT id_persona
-										FROM Persona
-										WHERE DPI = '$dpi'
-										AND passw = :clave ;");
-				$sql->bindParam(':clave', $_GET['clave']);
-				$sql->execute();
-
-				if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
-					// no hay persona con ese dpi
-
-					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
-		    		echo json_encode($arr);
-
-				}else{
-					//login correcto
-						$sql->execute();
-						//echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
-						$arr = array('estado' => '200', 'mensaje' => 'Ok');
-		    			echo json_encode($arr);
-				}
-
-			}else {
-				
-				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+		    	$arr = array('estado' => '404', 'mensaje' => 'Parametros incorrectos');
 		    	echo json_encode($arr);
-			}
 		}
+
+	}
 
 ?>
