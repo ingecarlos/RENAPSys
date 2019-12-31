@@ -12,7 +12,7 @@ include('library/template.php');
 		$dpi =  $dataIn["dpi"];
 		$fecha =  $dataIn["fecha"];
 
-		if( !empty($dpi) && !empty($fecha)){
+		if( isset($dpi) && isset($fecha)){
 			
 			//Verificar si ya existe una defuncion con el dpi solicitado
 			$sql = $pdo->prepare("SELECT Persona.id_persona FROM Defuncion, Persona WHERE Persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
@@ -48,7 +48,7 @@ include('library/template.php');
 				}
 			}else{
 				
-				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+				$arr = array('estado' => '404', 'mensaje' => 'Parametros incorrectos');
 		    	echo json_encode($arr);
 			}
 
