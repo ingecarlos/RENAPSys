@@ -9,11 +9,11 @@ include('library/template.php');
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		$dpi =  $dataIn["dpi"];
-		$fecha =  $dataIn["fecha"];
-
-		if( isset($dpi) && isset($fecha)){
-			
+		
+		if( isset($dataIn["dpi"]) && isset($dataIn["fecha"])){
+			$dpi =  $dataIn["dpi"];
+			$fecha =  $dataIn["fecha"];
+	
 			//Verificar si ya existe una defuncion con el dpi solicitado
 			$sql = $pdo->prepare("SELECT Persona.id_persona FROM Defuncion, Persona WHERE Persona.dpi =:dpi and Persona.id_persona=Defuncion.persona_id_persona");
 			$sql->bindParam(':dpi', $dpi);
