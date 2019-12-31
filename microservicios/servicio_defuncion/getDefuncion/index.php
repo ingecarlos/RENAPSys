@@ -28,7 +28,7 @@ include('library/template.php');
 			}
 
 		}else {
-			$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+			$arr = array('estado' => '404', 'mensaje' => 'Parametros incorrectos');
 	    	echo json_encode($arr);
 		}
 	}
