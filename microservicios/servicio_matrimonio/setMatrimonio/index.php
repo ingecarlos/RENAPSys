@@ -8,18 +8,12 @@ $today = date("d-m-Y");
 
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		$dpihombre =  $dataIn["dpihombre"];
-		$dpimujer =  $dataIn["dpimujer"];
-		$fecha =  $dataIn["fecha"];
 
-
-		if( !empty($dpihombre) && !empty($dpimujer) && !empty($fecha)){
+		if( isset($dataIn["dpihombre"]) && isset($dataIn["dpimujer"]) && isset($dataIn["fecha"])){
 			
-			//obtener id_persona de cada involucrado
-
-			//$dpi_Hombre =  $_POST['dpihombre'];
-			//$dpi_Mujer = $_POST['dpimujer'];
-			//$fecha = $_POST['fecha'];
+			$dpihombre =  $dataIn["dpihombre"];
+			$dpimujer =  $dataIn["dpimujer"];
+			$fecha =  $dataIn["fecha"];
 
 			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE dpi =:dpihombre");
 			$sql->bindParam(':dpihombre', $dpihombre);
@@ -93,44 +87,10 @@ $today = date("d-m-Y");
 		    }
 		}else{
 
-			$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+			$arr = array('estado' => '404', 'mensaje' => 'Parametros incorrectos');
 		    echo json_encode($arr);
 		}
 	
-	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
-		// servicio cliente externo -> consulta de defuncion 
-			if( !empty($_GET['dpi'])){
-
-				$dpi =  $_GET['dpi'];
-				//Verificar si ya existe una defuncion con el dpi solicitado
-				$sql = $pdo->prepare("SELECT  m.id_matrimonio as nomatrimonio, esposo.DPI as dpihombre, esposo.nombre as nombrehombre, esposo.apellido as apellidohombre, esposa.dpi as dpimujer, esposa.nombre as nombremujer, esposa.apellido as apellidomujer, m.fecha_matrimonio as fecha
-										FROM Matrimonio as m, Persona as esposo, Persona as esposa
-										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
-										and m.Estado_matrimonio = '1'
-										and m.persona_id_esposa = esposa.id_persona
-										and m.persona_id_esposo = esposo.id_persona;");
-				$sql->bindParam(':dpi', $_GET['dpi']);
-				$sql->execute();
-
-
-				if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
-					// no hay matrimonio asignado
-
-					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
-		    		echo json_encode($arr);
-
-				}else{
-					//datos de matrimonio
-						$sql->execute();
-						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
-						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));			
-				}
-				
-			}else {
-				
-				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
-		    	echo json_encode($arr);
-			}
 	}
 
 ?>

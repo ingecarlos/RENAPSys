@@ -23,84 +23,16 @@ $today = date("d-m-Y");
 
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		$dpi =  $dataIn["dpi"];
-		$tipo =  $dataIn["tipo"];
-		$añosAntiguedad = $dataIn["añosAntiguedad"];
 
-		$setActualizar = true;
+
+		//$setActualizar = true;
 
 		//echo $añosAntiguedad;
 
-			if( !empty($dpi) && !empty($tipo) && isset($añosAntiguedad)){
-			
-				$setLicencia = false;
-				//$dpi =  $_POST['dpi'];
-				//$tipo =  $_POST['tipo'];
-				//$añosAntiguedad = $_POST['añosAntiguedad'];
+		if(isset($dataIn["dpi"]) && isset($dataIn["tipo"])){
 
-				//Verificar si la persona existe - > tiene dpi o no ?
-
-				$sql = $pdo->prepare("SELECT Persona.id_persona FROM Persona WHERE Persona.dpi =:dpi");
-				$sql->bindParam(':dpi', $dpi);
-				$sql->execute();
-
-
-					//Si el dpi no existe -> no se le puede asignar una licencia 
-				    if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
-				    	// sin dpi -> edad minima
-				    	// existencia de dpi
-				    }else{
-
-				    	//la persona tiene un dpi
-				    	// ¿la persona ya tiene una licencia asignada?
-				    	$sql_licencia = $pdo->prepare("SELECT Al.idAsignacion_licencia FROM Persona as P , Asignacion_licencia as Al WHERE P.DPI =:dpi AND P.id_persona = Al.Persona_id_persona");
-						$sql_licencia->bindParam(':dpi', $dpi);
-						$sql_licencia->execute();
-
-						//la persona no tiene una licencia asignada
-						if(json_encode($sql_licencia->fetch(PDO::FETCH_ASSOC)) == "false"){
-							// asignar una licencia nueva a la persona del tipo c o m 
-							if($tipo=="c" || $tipo=="m"){
-
-								//asignar licencia
-
-								//obtener id persona
-
-								$sql->execute();
-								$id_personaJson = $sql->fetch(PDO::FETCH_ASSOC);
-				        		$id_persona = $id_personaJson['id_persona'];
-
-				        		//obtener tipo licencia
-
-				        		$sql_tipo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra =:tipo");
-								$sql_tipo->bindParam(':tipo', $tipo);
-								$sql_tipo->execute();
-								$id_tipoJson = $sql_tipo->fetch(PDO::FETCH_ASSOC);
-				        		$id_tipo = $id_tipoJson['id_tipo_licencia'];
-
-				        		//insertar registro  -> Asignacion_licencia en minuscula 
-				        		$sql_nueva = $pdo->prepare("INSERT INTO Asignacion_licencia(Fecha_asignacion, Persona_id_persona, Tipo_Licencia_id_tipo_licencia) VALUES('$today', '$id_persona', '$id_tipo')");
-				    			$sql_nueva->execute();
-
-				    			$arr = array('estado' => '200', 'mensaje' => 'Ok');
-		    					echo json_encode($arr);
-				    			
-				    			exit();
-
-							}else{
-								//no se puede asignar una primera licencia de tipo A o B 
-								$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
-		    					echo json_encode($arr);
-								
-								exit();
-							}
-
-						}else{
-							//ya posee una licencia , por lo tanto no se le puede asignar otra -> eso es actualizar 
-						}
-					}
-
-			}else if(!empty($dpi) && !empty($tipo) && $setActualizar){
+			$dpi =  $dataIn["dpi"];
+			$tipo =  $dataIn["tipo"];
 
 				//Actualizar licencia
 				//Actualizar licencia de "m" a "c" y "c" a "m" -> sin problemas
@@ -183,7 +115,7 @@ $today = date("d-m-Y");
 					        }else if((int)$intervalo->format('%a')> 1095 && ($id_tipo_letra == "b" || $id_tipo_letra == "B") && ($tipo =="a" || $tipo =="A")) {
 					        	//echo "ya pasaron los tres años de b a a";
 
-					        									$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'A'");
+					        	$sql_tipo_nuevo = $pdo->prepare("SELECT id_tipo_licencia FROM Tipo_Licencia WHERE Descripcion_Letra = 'A'");
 								$sql_tipo_nuevo->bindParam(':dpi', $dpi);
 								$sql_tipo_nuevo->execute();
 								$id_tipoJsonNuevo = $sql_tipo_nuevo->fetch(PDO::FETCH_ASSOC);
@@ -248,43 +180,14 @@ $today = date("d-m-Y");
 		    					exit();
 					        }
 							//echo "hola actualizar";
-						}
+						}//fin else == false
 
-					}
+					}//fin else == false
 
-			}
+		}else{
 
-	}else if($_SERVER['REQUEST_METHOD'] == 'GET'){
-				// servicio cliente externo -> consulta de licencia
-			if( !empty($_GET['dpi'])){
-
-				$dpi =  $_GET['dpi'];
-				//Verificar si existe la persona y licencia asignada
-				$sql = $pdo->prepare("SELECT P.Apellido as apellidos, P.Nombre as nombre, T.Descripcion_Letra as tipo, AL.Fecha_asignacion as fechanac
-										FROM Persona as P , Asignacion_licencia as AL, Tipo_Licencia as T
-										WHERE P.DPI = :dpi
-										AND P.id_persona = AL.Persona_id_persona
-										AND AL.Tipo_Licencia_id_tipo_licencia = T.id_tipo_licencia;");
-				$sql->bindParam(':dpi', $_GET['dpi']);
-				$sql->execute();
-
-				if(json_encode($sql->fetch(PDO::FETCH_ASSOC)) == "false"){
-					// no hay licencia asignada
-
-					$arr = array('estado' => '500', 'mensaje' => 'Error en la operacion');
-		    		echo json_encode($arr);
-
-				}else{
-					//datos de licencia asignada
-						$sql->execute();
-						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );
-						//echo json_encode($sql->fetch(PDO::FETCH_ASSOC));			
-				}
-			}else{
-
-				$arr = array('estado' => '404', 'mensaje' => 'Ruta no disponible');
+				$arr = array('estado' => '404', 'mensaje' => 'Parametros incorrectos');
 		    	echo json_encode($arr);
-			}
-
+		}
 	}
 ?>
