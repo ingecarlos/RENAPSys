@@ -8,18 +8,19 @@ $today = date("d-m-Y");
 	if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 		$dataIn = json_decode(file_get_contents('php://input'), true);
-		$dpiPadre =  $dataIn["dpipadre"];
-		$dpiMadre =  $dataIn["dpimadre"];
-		$apellido =  $dataIn["apellido"];
-		$nombre =  $dataIn["nombre"];		
-		$fechaNacimiento =  $dataIn["fechanacimiento"];		
-		$genero =  $dataIn["genero"];
-		$departamento =  $dataIn["departamento"];
-		$municipio =  $dataIn["municipio"];
-
-
-		if( !empty($dpiPadre) && !empty($dpiMadre) && !empty($apellido) &&  !empty($nombre) &&  !empty($fechaNacimiento) && !empty($genero) && !empty($departamento) && !empty($municipio)){
+		
+		if( isset( $dataIn["dpipadre"]) && isset($dataIn["dpimadre"]) && isset($dataIn["apellido"]) &&  isset($dataIn["nombre"]) &&  isset($dataIn["fechanacimiento"]) && isset($dataIn["genero"]) && isset($dataIn["departamento"]) && isset($dataIn["municipio"])){
 			
+			$dpiPadre =  $dataIn["dpipadre"];
+			$dpiMadre =  $dataIn["dpimadre"];
+			$apellido =  $dataIn["apellido"];
+			$nombre =  $dataIn["nombre"];		
+			$fechaNacimiento =  $dataIn["fechanacimiento"];		
+			$genero =  $dataIn["genero"];
+			$departamento =  $dataIn["departamento"];
+			$municipio =  $dataIn["municipio"];
+
+	
 			//obtener datos de parametro
 			/*
 			$dpiPadre =  $_POST['dpiPadre'];
