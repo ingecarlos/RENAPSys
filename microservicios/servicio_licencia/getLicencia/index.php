@@ -29,7 +29,28 @@ $today = date("d-m-Y");
 				$dpi =  $dataIn["dpi"];
 
 				//Verificar si existe la persona y licencia asignada
-				$sql = $pdo->prepare("SELECT P.Apellido as apellidos, P.Nombre as nombre, T.Descripcion_Letra as tipo, AL.Fecha_asignacion as fechanac
+
+
+				//modificar que regrese cuantos años lleva con esa licencia en años 
+
+				$sql_get = $pdo->prepare("SELECT AL.Fecha_asignacion as fecha_asignacion
+										FROM Persona as P , Asignacion_licencia as AL
+										WHERE P.DPI = :dpi
+										AND P.id_persona = AL.Persona_id_persona");
+				$sql_get->bindParam(':dpi', $dpi);
+				$sql_get->execute();
+				$fecha_vig = $sql_get->fetch(PDO::FETCH_ASSOC);
+				$fecha_vigencia = $fecha_vig['fecha_asignacion']; // fecha cuando se asigno la licencia actual
+
+				$fecha_nueva = new DateTime($today); // fecha de hoy
+				$fecha_vieja = new DateTime($fecha_vigencia); // fecha de licencia asignada
+				$intervalo = date_diff($fecha_vieja, $fecha_nueva);
+
+				$tiempoaños = (int)$intervalo->format('%a')/365;
+				$tiempoañosentero = floor($tiempoaños);
+
+				
+				$sql = $pdo->prepare("SELECT P.Apellido as apellidos, P.Nombre as nombre, T.Descripcion_Letra as tipo, AL.Fecha_asignacion as fechanac, '$tiempoañosentero' as anosantiguedad
 										FROM Persona as P , Asignacion_licencia as AL, Tipo_Licencia as T
 										WHERE P.DPI = :dpi
 										AND P.id_persona = AL.Persona_id_persona

@@ -10,10 +10,11 @@ include('library/template.php');
 
 
 		//QUEDA PENDIENTE LO DE CORREO ELECTRONICO -> ENVIAR CORREO AL PARAMETRO 
-		if( isset($dataIn["dpi"]) && isset($dataIn["correo"])){
+		if( isset($dataIn["dpi"]) && isset($dataIn["correo"]) && isset($dataIn["tipo"])){
 			//verificar que el dpi exista y no tenga contraseña
 
 			$dpi =  $dataIn["dpi"];
+			$correo = $dataIn["correo"];
 
 
 			$sql = $pdo->prepare("SELECT id_persona FROM Persona WHERE DPI =:dpi");
