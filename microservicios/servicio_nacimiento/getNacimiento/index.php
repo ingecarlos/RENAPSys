@@ -9,7 +9,7 @@ $today = date("d-m-Y");
 		
 		// servicio cliente externo -> consulta de defuncion 
 			if( isset($dataIn['dpipadremadre'])){
-				$dpi =  $dataIn["dpiPadremadre"];
+				$dpi =  $dataIn["dpipadremadre"];
 
 				$sql = $pdo->prepare("SELECT AsigT.id_asignacion_tutor as noacta, Hijo.Apellido as apellidos, Hijo.Nombre as nombre, 
 									Tutor.DPI as dpipadre, Tutor.Nombre as nombrepadre, Tutor.Apellido as apellidopadre, 
