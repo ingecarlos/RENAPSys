@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Licencia</title>
+        <title>Actualizar Licencia</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -71,7 +71,7 @@
                     Licencia
             </div> 
 
-                <form action="{{ url('licencia') }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('licenciaActualizar') }}" method="post" accept-charset="utf-8">
                   @csrf
                   <div class="contact-form">                  
                      <div class="form-group">
@@ -87,18 +87,11 @@
                             <input type="text" class="form-control" id="tipo" placeholder="Tipo" name="tipo">
                             <span class="text-danger">{{ $errors->first('tipo') }}</span>
                         </div>
-                        <br>
-                        <div class="col-sm-10">          
-                            <label class="col-10" for="faños">Años de antiguedad:</label>
-                            <input type="text" class="form-control" id="añosAntiguedad" placeholder="Años" name="añosAntiguedad">
-                            <span class="text-danger">{{ $errors->first('anios') }}</span>
-                        </div>
-                        <br>
-                                         
+                        <br>                        
                      
                      <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">                            
-                            <button type="submit" class="btn btn-dark">Guardar</button>
+                            <button type="submit" class="btn btn-dark">Actualizar</button>
                         </div>
                      </div>                     
 

@@ -71,20 +71,20 @@
                     DPI
             </div> 
 
-                <form action="{{ url('licencia') }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('dpi') }}" method="post" accept-charset="utf-8">
                   @csrf
                   <div class="contact-form">                  
                      <div class="form-group">
                                            
                         <div class="col-sm-10">          
-                            <label class="col-6" for="fdpi">DPI:</label>
-                            <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
-                            <span class="text-danger">{{ $errors->first('dpi') }}</span>
+                            <label class="col-12" for="fdpi">Número de acta:</label>
+                            <input type="text" class="form-control" id="numeroacta" placeholder="Numero" name="numeroacta">
+                            <span class="text-danger">{{ $errors->first('numeroacta') }}</span>
                         </div>                                                
                         <br>                                                              
                      <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">                            
-                            <button type="submit" class="btn btn-dark">Guardar</button>
+                            <button type="submit" class="btn btn-dark">Asignar DPI</button>
                         </div>
                      </div>                     
 

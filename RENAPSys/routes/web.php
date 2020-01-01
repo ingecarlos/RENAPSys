@@ -30,7 +30,11 @@ Route::get('/divorcio', 'DivorcioController@index')->name('divorcio');
 Route::post('/divorcio', 'DivorcioController@store')->name('divorcio');
 
 Route::get('/dpi', 'DpiController@index')->name('dpi');
+Route::post('/dpi', 'DpiController@store')->name('dpi');
 
-Route::get('/licencia', 'LicenciaController@index')->name('licencia');
+Route::get('/licenciamenu', 'LicenciaController@indexMenu')->name('licenciamenu');
+Route::get('/licencia', 'LicenciaController@indexAsignar')->name('licencia');
+Route::get('/licenciaActualizar', 'LicenciaController@indexActualizar')->name('licenciaActualizar');
 Route::post('/licencia', 'LicenciaController@store')->name('licencia');
+Route::post('/licenciaActualizar', 'LicenciaController@update')->name('licenciaActualizar');
 

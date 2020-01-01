@@ -40,7 +40,7 @@ class DefuncionController extends Controller
         //$response = $client->request('POST', $this->host.':9002/', [        
             $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => '/setDefuncion',
+                'url' => 'http://35.232.40.193:9002/setDefuncion',
                 'tipo' => 'POST',
                 'parametros' =>
                              array('dpi' => $request->input('dpi'),
@@ -57,13 +57,13 @@ class DefuncionController extends Controller
             
             $res = (string) $response->getBody();
             $json = json_decode($res); 
-            $dp = $json->estado;
-            $dp2 = $json->mensaje;
+            $est = $json->estado;
+            $msj = $json->mensaje;
 
-            if($dp=="200"){
+            if($est=="200"){
                 return Redirect::to("/defuncion")->withSuccess('Registro almacenado.');  
             }else{
-                return Redirect::to("/info")->withSuccess($dp2);  
-            }                     
+                return View::make('info')->with('est', $est)->with('msj', $msj);
+            }                    
     }
 }

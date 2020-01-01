@@ -59,7 +59,7 @@
     <body>        
     <div class="flex-center position-ref full-height">         
             <div class="top-right links">             
-                <a href="{{ url('licenciamenu') }}">Regresar</a>                                                                
+                <a href="{{ url('/') }}">Regresar</a>                                                                
             </div>
             <div class="content">
             @if(Session::has('success'))
@@ -71,39 +71,10 @@
                     Licencia
             </div> 
 
-                <form action="{{ url('licencia') }}" method="post" accept-charset="utf-8">
-                  @csrf
-                  <div class="contact-form">                  
-                     <div class="form-group">
-                                           
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="fdpi">DPI:</label>
-                            <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
-                            <span class="text-danger">{{ $errors->first('dpi') }}</span>
-                        </div>
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="ftipo">Tipo:</label>
-                            <input type="text" class="form-control" id="tipo" placeholder="Tipo" name="tipo">
-                            <span class="text-danger">{{ $errors->first('tipo') }}</span>
-                        </div>
-                        <br>
-                        <div class="col-sm-10">          
-                            <label class="col-10" for="faños">Años de antiguedad:</label>
-                            <input type="text" class="form-control" id="añosAntiguedad" placeholder="Años" name="añosAntiguedad">
-                            <span class="text-danger">{{ $errors->first('anios') }}</span>
-                        </div>
-                        <br>
-                                         
-                     
-                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">                            
-                            <button type="submit" class="btn btn-dark">Guardar</button>
-                        </div>
-                     </div>                     
-
-                  </div>
-               </form>                                
+                <div class="links">
+                    <a href="{{ url('/licencia') }}">Asignar</a>
+                    <a href="{{ url('/licenciaActualizar') }}">Actualizar</a>                    
+                </div>                             
             </div>
         </div>
     </body>
