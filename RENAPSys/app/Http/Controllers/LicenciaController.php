@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Redirect;
 use Session;
+use Illuminate\Support\Facades\View;
 
 class LicenciaController extends Controller
 {
@@ -15,13 +16,25 @@ class LicenciaController extends Controller
 
     }
 
-    public function index()
+    public function indexMenu()
+    {
+        return view('licenciamenu');
+    }
+
+    public function indexAsignar()
     {
         return view('licencia');
     }
 
+    public function indexActualizar()
+    {
+        return view('licenciaActualizar');
+    }
+
     public function store(Request $request)
     {
+
+        $tipoLower = strtolower($request->input('tipo'));
         $client = new \GuzzleHttp\Client();
         /*
         $response = $client->request('POST', $this->host.':9005/', [
@@ -42,12 +55,40 @@ class LicenciaController extends Controller
 
         $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => '/setLicencia',
+                'url' => 'http://35.232.40.193:9005/setLicencia',
                 'tipo' => 'POST',
                 'parametros' =>
                              array('dpi' => $request->input('dpi'),
-                             'tipo' => $request->input('tipo'),
-                             'añosAntiguedad' => $request->input('añosAntiguedad'),
+                             'tipo' => $tipoLower,
+                             'añosantiguedad' => $request->input('añosAntiguedad'),
+                                )                       
+                ]   
+            ]);
+
+            $res = (string) $response->getBody();
+            $json = json_decode($res); 
+            $est = $json->estado;
+            $msj = $json->mensaje;
+
+            if($est=="200"){
+                return Redirect::to("/licencia")->withSuccess('Registro almacenado.');  
+            }else{
+                return View::make('info')->with('est', $est)->with('msj', $msj);
+            }   
+    }
+
+    public function update(Request $request)
+    {
+
+        $tipoLower = strtolower($request->input('tipo'));
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', $this->host, [
+            'json' => [
+                'url' => 'http://35.232.40.193:9005/setActualizar',
+                'tipo' => 'POST',
+                'parametros' =>
+                             array('dpi' => $request->input('dpi'),
+                             'tipo' => $tipoLower,                             
                                 )                       
                 ]   
             ]);

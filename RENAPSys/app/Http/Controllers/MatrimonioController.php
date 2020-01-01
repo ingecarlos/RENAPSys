@@ -40,7 +40,7 @@ class MatrimonioController extends Controller
 
         $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => '/setMatrimonio',
+                'url' => 'http://35.232.40.193:9001/setMatrimonio',
                 'tipo' => 'POST',
                 'parametros' =>
                              array(

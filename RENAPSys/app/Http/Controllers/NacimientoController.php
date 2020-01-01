@@ -23,6 +23,9 @@ class NacimientoController extends Controller
 
     public function store(Request $request)
     {
+        $apellidosLower = strtolower($request->input('apellidos'));
+        $nombresLower = strtolower($request->input('nombres'));
+        $sexoLower = strtolower($request->input('sexo'));
         $client = new \GuzzleHttp\Client();
         /*
         $response = $client->request('POST', $this->host.':9000/', [
@@ -45,16 +48,16 @@ class NacimientoController extends Controller
         
         $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => '/setNacimiento',
+                'url' => 'http://35.232.40.193:9000/setNacimiento',
                 'tipo' => 'POST',
                 'parametros' =>
                              array(                
-                                'dpiPadre' => $request->input('dpipadre'),
-                                'dpiMadre' => $request->input('dpimadre'),
-                                'apellido' => $request->input('apellidos'),
-                                'nombre' => $request->input('nombres'),            
-                                'fechaNacimiento' => $request->input('fechaf'),
-                                'genero' => $request->input('sexo'),
+                                'dpipadre' => $request->input('dpipadre'),
+                                'dpimadre' => $request->input('dpimadre'),
+                                'apellido' => $apellidosLower,
+                                'nombre' => $nombresLower,
+                                'fechanacimiento' => $request->input('fechaf'),
+                                'genero' => $sexoLower,
                                 'departamento' => $request->input('depto'),
                                 'municipio' => $request->input('municipio')
                              )

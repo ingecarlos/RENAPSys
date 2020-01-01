@@ -81,7 +81,7 @@
                     <a href="{{ url('/matrimonio') }}">Matrimonio</a>
                     <a href="{{ url('/defuncion') }}">Defuncion</a>
                     <a href="{{ url('/divorcio') }}">Divorcio</a>
-                    <a href="{{ url('/licencia') }}">Licencia</a>                    
+                    <a href="{{ url('/licenciamenu') }}">Licencia</a>                    
                     <a href="{{ url('/dpi') }}">DPI</a>                                        
                 </div>
             </div>

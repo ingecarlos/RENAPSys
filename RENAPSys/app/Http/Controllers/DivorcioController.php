@@ -42,12 +42,12 @@ class DivorcioController extends Controller
         
         $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => '/setDivorcio',
+                'url' => 'http://35.232.40.193:9003/setDivorcio',
                 'tipo' => 'POST',
                 'parametros' =>
                              array(
-                                'dpiEsposo' => $request->input('dpih'),
-                                'dpiEsposa' => $request->input('dpim'),
+                                'dpiesposo' => $request->input('dpih'),
+                                'dpiesposa' => $request->input('dpim'),
                                 'fecha' => $request->input('fecham')  
                              )
                 ]
