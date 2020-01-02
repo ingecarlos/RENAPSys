@@ -60,8 +60,6 @@ pipeline {
                 sh 'docker stop externo-running || true && docker rm externo-running || true'
                 sh 'docker run --name externo-running -p 12000:80 -d externo'
 
-
-
             }
         }
         stage('Test') {
