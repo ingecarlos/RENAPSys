@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\View;
 
 class NacimientoController extends Controller
 {
-    private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+    //private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+    private $host;
 
     public function __construct()
     {
@@ -26,6 +27,33 @@ class NacimientoController extends Controller
         $apellidosLower = strtolower($request->input('apellidos'));
         $nombresLower = strtolower($request->input('nombres'));
         $sexoLower = strtolower($request->input('sexo'));
+
+        $grupo = $request->input("combogrupos");            
+        if($grupo=="grupo6"){
+            $this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+            //var_dump($grupo);
+            //print_r($grupo);
+            //return View::make('defuncionesInfo');
+        }
+        elseif($grupo=="grupo1")  {
+            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo2")  {
+            $this->host = 'http://35.239.54.7:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo3")  {
+            $this->host = 'http://35.184.97.83:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo4")  {
+            $this->host = 'http://35.193.113.191:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo5")  {
+            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo7")  {
+            $this->host = 'http://35.211.247.121:10000/post/comunicacionesb/';
+        }
+
         $client = new \GuzzleHttp\Client();
         /*
         $response = $client->request('POST', $this->host.':9000/', [
