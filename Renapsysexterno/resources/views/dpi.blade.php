@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Informacion</title>
+        <title>DPI</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #BDBDBD;
-                color: #1C1C1C;
+                background-color: #E6E6E6;
+                color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -52,45 +52,44 @@
                 text-transform: uppercase;
             }
             .m-b-md {
-                margin-bottom: 10px;
+                margin-bottom: 30px;
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="top-right links">
-                <a href="{{ url('/') }}">Regresar</a>
+    <body>        
+    <div class="flex-center position-ref full-height">         
+            <div class="top-right links">             
+                <a href="{{ url('/') }}">Regresar</a>                                                                
             </div>
             <div class="content">
-
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
-            @endif
-
+            @endif  
             <div class="title m-b-xs">
-                    Licencias
-            </div>
-                <form action="" method="" accept-charset="utf-8">
-                @csrf
-                  <div class="contact-form">
-                     <div class="form-group">
+                    DPI
+            </div> 
 
-                        <div class="col-sm-12">
-                            <label class="col-6">Nombre: {{ $apellidos }} {{ $nombre }}</label> 
-                            <label class="col-6">Fecha de nacimiento: {{ $fechanac }}</label>                                                         
-                            <label class="col-6">Tipo: {{ $tipo }}</label>                                                         
-                            <label class="col-6">Años de antiguedad: {{ $anosantiguedad }}</label>                                                                                                              
-                        </div>
-                        <br>
+                <form action="{{ url('dpi') }}" method="post" accept-charset="utf-8">
+                  @csrf
+                  <div class="contact-form">                  
                      <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-dark">Certificado</button>
+                                           
+                        <div class="col-sm-10">          
+                            <label class="col-12" for="fdpi">Número de acta:</label>
+                            <input type="text" class="form-control" id="numeroacta" placeholder="Numero" name="numeroacta">
+                            <span class="text-danger">{{ $errors->first('numeroacta') }}</span>
+                        </div>                                                
+                        <br>                                                              
+                     <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">                            
+                            <button type="submit" class="btn btn-dark">Asignar DPI</button>
                         </div>
-                     </div>
+                     </div>                     
+
                   </div>
-               </form>
+               </form>                                
             </div>
         </div>
     </body>

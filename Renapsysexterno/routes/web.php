@@ -14,29 +14,27 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/info', 'InfoController@index')->name('info');
 
-Route::get('/personas', 'PersonasController@index')->name('personas');
-Route::post('/personas', 'PersonasController@getRequest')->name('personas');
-Route::get('/personasInfo', 'PersonasController@index2')->name('personasInfo');
+Route::get('/nacimiento', 'NacimientoController@index')->name('nacimiento');
+Route::post('/nacimiento', 'NacimientoController@store')->name('nacimiento');
 
-Route::get('/nacimientos', 'NacimientosController@index')->name('nacimientos');
-Route::post('/nacimientos', 'NacimientosController@getRequest')->name('nacimientos');
-Route::get('/nacimientosInfo', 'NacimientosController@index2')->name('nacimientosInfo');
+Route::get('/matrimonio', 'MatrimonioController@index')->name('matrimonio');
+Route::post('/matrimonio', 'MatrimonioController@store')->name('matrimonio');
 
-Route::get('/matrimonios', 'MatrimoniosController@index')->name('matrimonios');
-Route::post('/matrimonios', 'MatrimoniosController@getRequest')->name('matrimonios');
-Route::get('/matrimoniosInfo', 'MatrimoniosController@index2')->name('matrimoniosInfo');
+Route::get('/defuncion', 'DefuncionController@index')->name('defuncion');
+Route::post('/defuncion', 'DefuncionController@store')->name('defuncion');
 
-Route::get('/defunciones', 'DefuncionesController@index')->name('defunciones');
-Route::post('/defunciones', 'DefuncionesController@getRequest')->name('defunciones');
-Route::get('/defuncionesInfo', 'DefuncionesController@index2')->name('defuncionesInfo');
+Route::get('/divorcio', 'DivorcioController@index')->name('divorcio');
+Route::post('/divorcio', 'DivorcioController@store')->name('divorcio');
 
-Route::get('/divorcios', 'DivorciosController@index')->name('divorcios');
-Route::post('/divorcios', 'DivorciosController@getRequest')->name('divorcios');
-Route::get('/divorciosInfo', 'DivorciosController@index2')->name('divorciosInfo');
+Route::get('/dpi', 'DpiController@index')->name('dpi');
+Route::post('/dpi', 'DpiController@store')->name('dpi');
 
-Route::get('/licencias', 'LicenciasController@index')->name('licencias');
-Route::post('/licencias', 'LicenciasController@getRequest')->name('licencias');
-Route::get('/licenciasInfo', 'LicenciasController@index2')->name('licenciasInfo');
+Route::get('/licenciamenu', 'LicenciaController@indexMenu')->name('licenciamenu');
+Route::get('/licencia', 'LicenciaController@indexAsignar')->name('licencia');
+Route::get('/licenciaActualizar', 'LicenciaController@indexActualizar')->name('licenciaActualizar');
+Route::post('/licencia', 'LicenciaController@store')->name('licencia');
+Route::post('/licenciaActualizar', 'LicenciaController@update')->name('licenciaActualizar');
+

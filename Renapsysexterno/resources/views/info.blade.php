@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #BDBDBD;
-                color: #1C1C1C;
+                background-color: #E6E6E6;
+                color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -40,7 +40,7 @@
                 text-align: center;
             }
             .title {
-                font-size: 84px;
+                font-size: 70px;
             }
             .links > a {
                 color: #636b6f;
@@ -56,40 +56,22 @@
             }
         </style>
     </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="top-right links">
-                <a href="{{ url('/') }}">Regresar</a>
+    <body>            
+        <div class="flex-center position-ref full-height">         
+            <div class="top-right links">             
+                <a href="{{ url('/') }}">Regresar</a>                                                                
             </div>
             <div class="content">
-
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif
-
-            <div class="title m-b-xs">
-                    Defuncion
+                @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
+                    </div>
+                @endif                                
             </div>
-                <form action="" method="" accept-charset="utf-8">
-                @csrf
-                  <div class="contact-form">
-                     <div class="form-group">
 
-                        <div class="col-sm-12">
-                            <label class="col-6">Número de defunción: {{ $numero }}</label>                            
-                            <label class="col-6">Fecha: {{ $fecha }}</label>                            
-                            <label class="col-6">Nombre: {{ $apellido }} {{ $nombre }}</label>                                                        
-                        </div>
-                        <br>
-                     <div class="form-group">
-                        <div class=col-sm-12">
-                            <button type="submit" class="btn btn-dark">Certificado</button>
-                        </div>
-                     </div>
-                  </div>
-               </form>
+            <div class="col-sm-10">          
+                <label class="col-10" for="faños">Error {{$est}}</label>                
+                <label class="col-10" for="faños">{{$msj}}</label>                
             </div>
         </div>
     </body>

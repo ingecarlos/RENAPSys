@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Informacion</title>
+        <title>Matrimonio</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #BDBDBD;
-                color: #1C1C1C;
+                background-color: #E6E6E6;
+                color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -40,7 +40,7 @@
                 text-align: center;
             }
             .title {
-                font-size: 84px;
+                font-size: 70px;
             }
             .links > a {
                 color: #636b6f;
@@ -62,42 +62,56 @@
                 <a href="{{ url('/') }}">Regresar</a>                                                                
             </div>
             <div class="content">
-            @if(Session::has('success'))
-                <div class="alert alert-success">
-                    {{Session::get('success')}}
-                </div>
-            @endif  
-            <div class="title m-b-xs">
-                    Nacimiento
-            </div>               
+                @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
+                    </div>
+                @endif
 
-                <form action="" method="" accept-charset="utf-8">
+                <div class="title m-b-md">
+                    Matrimonio
+                </div>
+
+                <form action="{{ url('matrimonio') }}" method="post" accept-charset="utf-8">
                   @csrf
-                  <div class="contact-form">                  
-                     <div class="form-group">                                                                   
-                        <div class="col-sm-12">
-                            <label class="col-6">Nombre: {{ $apellidos }} {{ $nombre }}</label>   
-                            <label class="col-6">Fecha de nacimiento: {{ $fechanac }}</label>                            
-                            <label class="col-6">Departamento y municipio: {{ $departamento }}, {{ $municipio }}</label>                                                        
-                            @if ($genero=='m'|| $genero=='M'|| $genero=='h'|| $genero=='H' )
-                                <label class="col-6">Sexo: Masculino</label>
-                            @endif
-                            @if ($genero=='f'|| $genero=='F' )
-                                <label class="col-6">Sexo: Femenino</label>
-                            @endif                                                                                               
-                            <label class="col-6">Estado civil: {{ $estadocivil }}</label>                                                                                                               
-                        </div>   
-                        <br>                               
-                     </div>                     
-                     <br>
+                  <div class="contact-form">
+
+                     <div class="form-group">                        
+                        <div class="col-sm-10">          
+                            <label class="col-6" for="dpih">DPI Esposo:</label>
+                            <input type="text" class="form-control" id="dpih" placeholder="Ingrese el DPI" name="dpih">
+                            <span class="text-danger">{{ $errors->first('dpih') }}</span>
+                        </div>
+                     </div>
+
+                     <div class="form-group">                        
+                        <div class="col-sm-10">          
+                            <label class="col-6" for="dpim">DPI Esposa:</label>
+                            <input type="text" class="form-control" id="dpim" placeholder="Ingrese el DPI" name="dpim">
+                            <span class="text-danger">{{ $errors->first('dpim') }}</span>
+                        </div>
+                     </div>
+
+                     <div class="form-group">                        
+                        <div class="col-sm-10">          
+                            <label class="col-9" for="fecham">Fecha de matrimonio:</label>
+                            <input type="text" class="form-control" id="fecham" placeholder="Ingrese la fecha" name="fecham">
+                            <span class="text-danger">{{ $errors->first('fecham') }}</span>
+                        </div>
+                     </div>
+                     
                      <div class="form-group">
-                        <div class= col-sm-12">                            
-                            <button type="submit" class="btn btn-dark">Generar certificacion</button>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <br>
+                            <button type="submit" class="btn btn-dark">Guardar</button>
                         </div>
                      </div>                     
 
                   </div>
                </form>
+
+
+
                 
             </div>
         </div>
