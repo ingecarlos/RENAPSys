@@ -18,7 +18,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN rm /var/www/html/*
 
 ADD . /var/www/html/
-WORKDIR /var/www/html
+WORKDIR /var/www/html/Renapsysexterno
 CMD composer install
 
 EXPOSE 80
