@@ -70,27 +70,21 @@
             @endif
 
             <div class="title m-b-xs">
-                    Defunciones
+                    Defuncion
             </div>
                 <form action="" method="" accept-charset="utf-8">
-
+                @csrf
                   <div class="contact-form">
                      <div class="form-group">
 
-                        <div class="col-sm-10">
-                        @foreach($respuesta as $key => $value)
-    			            @if (!is_array($value))
-        			            {{ $key }} : {{ $value }} <br>
-    	  	                @else
-        			            @foreach ($value as $key => $valu)
-            			            {{ $key }} : {{ $valu }} <br>
-            		            @endforeach
-            	            @endif
-			            @endforeach
+                        <div class="col-sm-12">
+                            <label class="col-6">Número de defunción: {{ $numero }}</label>                            
+                            <label class="col-6">Fecha: {{ $fecha }}</label>                            
+                            <label class="col-6">Nombre: {{ $apellido }} {{ $nombre }}</label>                                                        
                         </div>
                         <br>
                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class=col-sm-12">
                             <button type="submit" class="btn btn-dark">Certificado</button>
                         </div>
                      </div>
