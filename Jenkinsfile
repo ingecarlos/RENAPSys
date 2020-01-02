@@ -55,10 +55,6 @@ pipeline {
                 sh 'docker stop interno-running || true && docker rm interno-running || true'
                 sh 'docker run --name interno-running -p 11000:80 -d interno'
 
-                echo 'Cliente Externo'
-                sh 'docker build -t externo ./RENAPSysE/'
-                sh 'docker stop externo-running || true && docker rm externo-running || true'
-                sh 'docker run --name externo-running -p 11001:80 -d externo'
 
 
             }
