@@ -16,7 +16,9 @@ $today = date("d-m-Y");
 										WHERE (esposo.DPI = :dpi or esposa.DPI = :dpi)  
 										and m.Estado_matrimonio = '0'
 										and m.persona_id_esposa = esposa.id_persona
-										and m.persona_id_esposo = esposo.id_persona;");
+										and m.persona_id_esposo = esposo.id_persona
+										ORDER BY fecha DESC
+										LIMIT 1;");
 				$sql->bindParam(':dpi', $dpi);
 				$sql->execute();
 
@@ -27,10 +29,12 @@ $today = date("d-m-Y");
 		    		echo json_encode($arr);
 
 				}else{
-					//datos de divorcio asignado
-						//$sql->execute();
-						//echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );	
-
+					//datos de ultimo divorcio asignado por fecha 
+						
+						$sql->execute();
+						echo json_encode( $sql->fetch(PDO::FETCH_ASSOC), JSON_NUMERIC_CHECK );	
+						
+						/*
 						$rows = $sql->fetch(PDO::FETCH_ASSOC);
 						$sql->execute();
 						while( $row = $sql->fetch(PDO::FETCH_ASSOC)) {
@@ -38,6 +42,7 @@ $today = date("d-m-Y");
 						}
 						
 						echo json_encode( $json, JSON_NUMERIC_CHECK);	
+						*/
 				}
 
 			}else {
