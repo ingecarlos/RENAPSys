@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Redirect, Session;
 use Illuminate\Support\Facades\View;
 
-class PersonasController extends Controller
+class LicenciasController extends Controller
 {
     //private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
     public $host;
@@ -18,18 +18,18 @@ class PersonasController extends Controller
 
     public function index()
     {
-        return view('personas');
+        return view('licencias');
     }
 
     public function index2()
     {
-        return view('personasInfo');
+        return view('licenciasInfo');
     }
 
     public function getRequest(Request $request)
     {
-        $client = new \GuzzleHttp\Client();
-
+        $client = new \GuzzleHttp\Client();   
+        
         $grupo = $request->input("combogrupos");            
         if($grupo=="grupo6"){
             $this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
@@ -55,11 +55,10 @@ class PersonasController extends Controller
         elseif($grupo=="grupo7")  {
             $this->host = 'http://35.211.247.121:10000/post/comunicacionesb/';
         }
-    
        
         $response = $client->request('POST', $this->host, [
             'json' => [
-                'url' => 'http://35.232.40.193:9004/getDPI',
+                'url' => 'http://35.232.40.193:9005/getLicencia',
                 'tipo' => 'POST',
                 'parametros' =>
                              array('dpi' => $request->input('dpi')                                    
@@ -71,12 +70,11 @@ class PersonasController extends Controller
         $json = json_decode($res);
 
         $apellidos = $json->apellidos;  
-        $nombre = $json->nombre;     
-        $fechanac = $json->fechanac;
-        $departamento = $json->departamento;   
-        $municipio = $json->municipio;   
-        $genero = $json->genero;   
-        $estadocivil = $json->estadocivil;   
-        return View::make('personasInfo')->with('apellidos', $apellidos)->with('nombre', $nombre)->with('fechanac', $fechanac)->with('departamento', $departamento)->with('municipio', $municipio)->with('genero', $genero)->with('estadocivil', $estadocivil);                              
+        $nombre = $json->nombre;    
+        $tipo = $json->tipo;            
+        $fechanac = $json->fechanac;  
+        $anosantiguedad = $json->anosantiguedad;                   
+        
+        return View::make('licenciasInfo')->with('apellidos', $apellidos)->with('nombre', $nombre)->with('tipo', $tipo)->with('fechanac', $fechanac)->with('anosantiguedad', $anosantiguedad);                              
     }
 }

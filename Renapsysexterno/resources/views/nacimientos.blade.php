@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Defuncion</title>
+        <title>Nacimientos</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #81F7D8;
+                background-color: #BDBDBD;
                 color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
@@ -69,32 +69,37 @@
             @endif
 
                 <div class="title m-b-md">
-                    Defunción
+                    Nacimientos
                 </div>
 
-                <form action="{{ url('defuncion') }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('nacimientos') }}" method="post" accept-charset="utf-8">
                   @csrf
                   <div class="contact-form">
                      <div class="form-group">                        
-                        <div class="col-sm-10">          
-                            <label class="control-label col-sm-2" for="fdpi">DPI:</label>
-                            <input type="text" class="form-control" id="dpi" placeholder="Ingrese el DPI" name="dpi">
-                            <span class="text-danger">{{ $errors->first('dpi') }}</span>
+                        <div class="col-sm-12">          
+                            <label class="control-label col-sm-10" for="fdpi">Ingrese el número de DPI:</label>
+                            <input type="text" class="form-control" id="dpipadremadre" placeholder="Ingrese el DPI" name="dpipadremadre">
+                            <span class="text-danger">{{ $errors->first('dpipadremadre') }}</span>
                         </div>
-                     </div>
-
-                     <div class="form-group">                        
-                        <div class="col-sm-10">          
-                            <label class="col-9" for="fechaf">Fecha de fallecimiento:</label>
-                            <input type="text" class="form-control" id="fechaf" placeholder="Ingrese la fecha" name="fechaf">
-                            <span class="text-danger">{{ $errors->first('fechaf') }}</span>
-                        </div>
-                     </div>
-                     
+                     </div>    
+                     <br>
+                        <div class="col-sm-12">  
+                            <label class="col-12" for="fdpi">Selecciona un grupo:</label>        
+                            <select name="combogrupos">                                
+                                <option value="grupo1">Grupo 1</option>
+                                <option value="grupo2">Grupo 2</option>
+                                <option value="grupo3">Grupo 3</option>
+                                <option value="grupo4">Grupo 4</option>
+                                <option value="grupo5">Grupo 5</option>
+                                <option value="grupo6" selected>Grupo 6</option>
+                                <option value="grupo7">Grupo 7</option>
+                            </select>
+                        </div>                 
+                     <br>
                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <div class="col-sm-12">
                             <br>
-                            <button type="submit" class="btn btn-dark">Guardar</button>
+                            <button type="submit" class="btn btn-dark">Consultar</button>
                         </div>
                      </div>                     
 

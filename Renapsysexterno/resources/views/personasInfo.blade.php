@@ -75,52 +75,23 @@
                   @csrf
                   <div class="contact-form">                  
                      <div class="form-group">                                                                   
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="apellidos">Apellidos:</label>
-                            <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos">
-                            <span class="text-danger">{{ $errors->first('apellidos') }}</span>
-                        </div>
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="nombres">Nombres:</label>
-                            <input type="text" class="form-control" id="nombres" placeholder="Nombres" name="nombres">
-                            <span class="text-danger">{{ $errors->first('nombres') }}</span>
-                        </div>
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-8" for="fecha">Fecha de nacimiento:</label>
-                            <input type="text" class="form-control" id="fecha" placeholder="Fecha nac" name="fecha">
-                            <span class="text-danger">{{ $errors->first('fecha') }}</span>
-                        </div>
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="depto">Departamento:</label>
-                            <input type="text" class="form-control" id="depto" placeholder="Departamento" name="depto">
-                            <span class="text-danger">{{ $errors->first('depto') }}</span>
-                        </div>
-                        
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="municipio">Municipio:</label>
-                            <input type="text" class="form-control" id="municipio" placeholder="Municipio" name="municipio">
-                            <span class="text-danger">{{ $errors->first('municipio') }}</span>
-                        </div>
-
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="sexo">Sexo:</label>
-                            <input type="text" class="form-control" id="sexo" placeholder="Sexo" name="sexo">
-                            <span class="text-danger">{{ $errors->first('sexo') }}</span>
-                        </div>
-
-                        <div class="col-sm-10">          
-                            <label class="col-6" for="estado">Estado Civil:</label>
-                            <input type="text" class="form-control" id="estado" placeholder="Estado civil" name="estado">
-                            <span class="text-danger">{{ $errors->first('estado') }}</span>
-                        </div>
+                        <div class="col-sm-12">
+                            <label class="col-6">Nombre: {{ $apellidos }} {{ $nombre }}</label>   
+                            <label class="col-6">Fecha de nacimiento: {{ $fechanac }}</label>                            
+                            <label class="col-6">Departamento y municipio: {{ $departamento }}, {{ $municipio }}</label>                                                        
+                            @if ($genero=='m'|| $genero=='M'|| $genero=='h'|| $genero=='H' )
+                                <label class="col-6">Sexo: Masculino</label>
+                            @endif
+                            @if ($genero=='f'|| $genero=='F' )
+                                <label class="col-6">Sexo: Femenino</label>
+                            @endif                                                                                               
+                            <label class="col-6">Estado civil: {{ $estadocivil }}</label>                                                                                                               
+                        </div>   
+                        <br>                               
                      </div>                     
                      <br>
                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">                            
+                        <div class= col-sm-12">                            
                             <button type="submit" class="btn btn-dark">Generar certificacion</button>
                         </div>
                      </div>                     

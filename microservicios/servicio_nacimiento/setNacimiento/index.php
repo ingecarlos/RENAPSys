@@ -17,10 +17,10 @@ $today = date("d-m-Y");
 			$nombre =  $dataIn["nombre"];		
 			$fechaNacimiento =  $dataIn["fechanacimiento"];		
 			$genero =  $dataIn["genero"];
-			$departamento =  $dataIn["departamento"];
-			$municipio =  $dataIn["municipio"];
+			$departamento =  $dataIn["departamento"]; // se recibe solo dos digitos
+			$municipio_viejo =  $dataIn["municipio"]; // se recibe solo dos digitos -> unir con departamento
+			$municipio = $municipio_viejo . $departamento; // union de las dos cadenas
 
-	
 			//obtener datos de parametro
 			/*
 			$dpiPadre =  $_POST['dpiPadre'];

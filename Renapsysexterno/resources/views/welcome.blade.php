@@ -76,17 +76,13 @@
                     RENAPSys
                 </div>
 
-                <div class="links">
-                    <a href="{{ url('/personas') }}">Personas</a>
+                <div class="links">                    
                     <a href="{{ url('/nacimientos') }}">Nacimientos</a>
                     <a href="{{ url('/matrimonios') }}">Matrimonios</a>
                     <a href="{{ url('/divorcios') }}">Divorcios</a>
-                    <a href="{{ url('/defunciones') }}">Defunciones</a>                    
-                    <!--
-                    <a href="{{ url('/dpi') }}">DPI</a>
-                    <a href="{{ url('/licencia') }}">Licencia</a>                                                                     
-                    -->
-                    
+                    <a href="{{ url('/defunciones') }}">Defunciones</a>                                        
+                    <a href="{{ url('/personas') }}">Personas</a>
+                    <a href="{{ url('/licencias') }}">Licencia</a>                                                                                                             
             </div>
             </div>
         </div>

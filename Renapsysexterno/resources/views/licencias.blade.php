@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Consultas Divorcios</title>
+        <title>Consultas Licencias</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -70,15 +70,15 @@
             @endif  
 
             <div class="title m-b-xs">
-                    Divorcio
+                    Licencias
             </div>               
-                <form action="{{ url('divorcios') }}" method="post" accept-charset="utf-8">
+                <form action="{{ url('licencias') }}" method="post" accept-charset="utf-8">
                 @csrf
                   <div class="contact-form">                  
                      <div class="form-group">
                                            
                         <div class="col-sm-12">          
-                            <label class="col-10" for="fdpi">Ingrese el número de DPI:</label>
+                            <label class="col-6" for="fdpi">Ingrese el número de DPI:</label>
                             <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
                             <span class="text-danger">{{ $errors->first('dpi') }}</span>
                         </div> 
