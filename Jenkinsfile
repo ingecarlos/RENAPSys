@@ -45,15 +45,21 @@ pipeline {
                 sh 'docker stop servicio_esb-running || true && docker rm servicio_esb-running || true'
                 sh 'docker run --name servicio_esb-running -p 10000:80 -d servicio_esb'
 
+                echo 'servicio cliente'
+                sh 'docker build -t servicio_cliente ./microservicios/servicio_cliente'
+                sh 'docker stop servicio_cliente-running || true && docker rm servicio_cliente-running || true'
+                sh 'docker run --name servicio_cliente-running -p 9006:80 -d servicio_cliente'
+
                 echo 'Cliente Interno'
                 sh 'docker build -t interno ./RENAPSys/'
                 sh 'docker stop interno-running || true && docker rm interno-running || true'
                 sh 'docker run --name interno-running -p 11000:80 -d interno'
 
-                echo 'servicio cliente'
-                sh 'docker build -t servicio_cliente ./microservicios/servicio_cliente'
-                sh 'docker stop servicio_cliente-running || true && docker rm servicio_cliente-running || true'
-                sh 'docker run --name servicio_cliente-running -p 9006:80 -d servicio_cliente'
+                echo 'Cliente externo'
+                sh 'docker build -t externo ./Renapsysexterno/'
+                sh 'docker stop externo-running || true && docker rm externo-running || true'
+                sh 'docker run --name externo-running -p 12000:80 -d externo'
+
 
 
             }
