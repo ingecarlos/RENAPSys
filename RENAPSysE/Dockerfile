@@ -19,8 +19,8 @@ RUN rm /var/www/html/*
 
 ADD . /var/www/html/
 WORKDIR /var/www/html
-CMD composer install
+RUN composer install
 
 EXPOSE 80
 
-CMD php artisan serve --host 0.0.0.0 --port 80
+RUN php artisan serve --host 0.0.0.0 --port 80
