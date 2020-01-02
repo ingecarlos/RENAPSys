@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Consultas Defunciones</title>
+        <title>Defuncion</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -13,8 +13,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #BDBDBD;
-                color: #1C1C1C;
+                background-color: #E6E6E6;
+                color: #2E2E2E;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -52,7 +52,7 @@
                 text-transform: uppercase;
             }
             .m-b-md {
-                margin-bottom: 10px;
+                margin-bottom: 30px;
             }
         </style>
     </head>
@@ -62,47 +62,48 @@
                 <a href="{{ url('/') }}">Regresar</a>                                                                
             </div>
             <div class="content">
-            
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
-            @endif  
+            @endif
 
-            <div class="title m-b-xs">
-                    Defuncion
-            </div>               
-                <form action="{{ url('defunciones') }}" method="post" accept-charset="utf-8">
-                @csrf
-                  <div class="contact-form">                  
-                     <div class="form-group">
-                                           
-                        <div class="col-sm-12">          
-                            <label class="col-6" for="fdpi">Ingrese el número de DPI:</label>
-                            <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
+                <div class="title m-b-md">
+                    Defunción
+                </div>
+
+                <form action="{{ url('defuncion') }}" method="post" accept-charset="utf-8">
+                  @csrf
+                  <div class="contact-form">
+                     <div class="form-group">                        
+                        <div class="col-sm-10">          
+                            <label class="control-label col-sm-2" for="fdpi">DPI:</label>
+                            <input type="text" class="form-control" id="dpi" placeholder="Ingrese el DPI" name="dpi">
                             <span class="text-danger">{{ $errors->first('dpi') }}</span>
-                        </div> 
-                        <br>
-                        <div class="col-sm-12">  
-                            <label class="col-12" for="fdpi">Selecciona un grupo:</label>        
-                            <select name="combogrupos">                                
-                                <option value="grupo1">Grupo 1</option>
-                                <option value="grupo2">Grupo 2</option>
-                                <option value="grupo3">Grupo 3</option>
-                                <option value="grupo4">Grupo 4</option>
-                                <option value="grupo5">Grupo 5</option>
-                                <option value="grupo6" selected>Grupo 6</option>
-                                <option value="grupo7">Grupo 7</option>
-                            </select>
                         </div>
-                        <br>                                                
+                     </div>
+
+                     <div class="form-group">                        
+                        <div class="col-sm-10">          
+                            <label class="col-9" for="fechaf">Fecha de fallecimiento:</label>
+                            <input type="text" class="form-control" id="fechaf" placeholder="Ingrese la fecha" name="fechaf">
+                            <span class="text-danger">{{ $errors->first('fechaf') }}</span>
+                        </div>
+                     </div>
+                     
                      <div class="form-group">
-                        <div class="col-sm-12">                            
-                            <button type="submit" class="btn btn-dark">Consultar</button>
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <br>
+                            <button type="submit" class="btn btn-dark">Guardar</button>
                         </div>
                      </div>                     
+
                   </div>
-               </form>        
+               </form>
+
+
+
+                
             </div>
         </div>
     </body>
