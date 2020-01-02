@@ -3,8 +3,80 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Redirect, Session;
+use Illuminate\Support\Facades\View;
 
 class NacimientosController extends Controller
 {
-    //
+    //private $host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+    public $host;
+
+    public function __construct()
+    {
+
+    }
+
+    public function index()
+    {
+        return view('nacimientos');
+    }
+
+    public function index2()
+    {
+        return view('nacimientosInfo');
+    }
+
+    public function getRequest(Request $request)
+    {
+        $client = new \GuzzleHttp\Client();
+
+        $grupo = $request->input("combogrupos");            
+        if($grupo=="grupo6"){
+            $this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+            //var_dump($grupo);
+            //print_r($grupo);
+            //return View::make('defuncionesInfo');
+        }
+        elseif($grupo=="grupo1")  {
+            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo2")  {
+            $this->host = 'http://35.239.54.7:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo3")  {
+            $this->host = 'http://35.184.97.83:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo4")  {
+            $this->host = 'http://35.193.113.191:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo5")  {
+            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+        }
+        elseif($grupo=="grupo7")  {
+            $this->host = 'http://35.211.247.121:10000/post/comunicacionesb/';
+        }
+    
+       
+        $response = $client->request('POST', $this->host, [
+            'json' => [
+                'url' => 'http://35.232.40.193:9000/getNacimiento',
+                'tipo' => 'POST',
+                'parametros' =>
+                             array('dpipadremadre' => $request->input('dpipadremadre')                                    
+                                    )                
+                    	   ]
+            ]);              
+        
+        $res = $response->getBody();            
+        $respuesta = json_decode($res, true);
+        return View::make('nacimientosInfo')->with('respuesta', $respuesta);
+        /*
+        $numero = $json->nodefuncion;   
+        $fecha = $json->fecha;  
+        $nombre = $json->nombre;    
+        $apellido = $json->apellido;   
+        
+        return View::make('defuncionesInfo')->with('numero', $numero)->with('fecha', $fecha)->with('nombre', $nombre)->with('apellido', $apellido);                              
+        */
+    }
 }

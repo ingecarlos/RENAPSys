@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Consultas Divorcios</title>
+        <title>Informacion</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -56,53 +56,41 @@
             }
         </style>
     </head>
-    <body>            
-        <div class="flex-center position-ref full-height">         
-            <div class="top-right links">             
-                <a href="{{ url('/') }}">Regresar</a>                                                                
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="top-right links">
+                <a href="{{ url('/') }}">Regresar</a>
             </div>
             <div class="content">
-            
+
             @if(Session::has('success'))
                 <div class="alert alert-success">
                     {{Session::get('success')}}
                 </div>
-            @endif  
+            @endif
 
             <div class="title m-b-xs">
-                    Divorcio
-            </div>               
-                <form action="{{ url('divorcios') }}" method="post" accept-charset="utf-8">
+                    Licencias
+            </div>
+                <form action="" method="" accept-charset="utf-8">
                 @csrf
-                  <div class="contact-form">                  
+                  <div class="contact-form">
                      <div class="form-group">
-                                           
-                        <div class="col-sm-12">          
-                            <label class="col-10" for="fdpi">Ingrese el número de DPI:</label>
-                            <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
-                            <span class="text-danger">{{ $errors->first('dpi') }}</span>
-                        </div> 
-                        <br>
-                        <div class="col-sm-12">  
-                            <label class="col-12" for="fdpi">Selecciona un grupo:</label>        
-                            <select name="combogrupos">                                
-                                <option value="grupo1">Grupo 1</option>
-                                <option value="grupo2">Grupo 2</option>
-                                <option value="grupo3">Grupo 3</option>
-                                <option value="grupo4">Grupo 4</option>
-                                <option value="grupo5">Grupo 5</option>
-                                <option value="grupo6" selected>Grupo 6</option>
-                                <option value="grupo7">Grupo 7</option>
-                            </select>
-                        </div>    
-                        <br>                                                
-                     <div class="form-group">
-                        <div class="col-sm-12">                            
-                            <button type="submit" class="btn btn-dark">Consultar</button>
+
+                        <div class="col-sm-12">
+                            <label class="col-6">Nombre: {{ $apellidos }} {{ $nombre }}</label> 
+                            <label class="col-6">Fecha de nacimiento: {{ $fechanac }}</label>                                                         
+                            <label class="col-6">Tipo: {{ $tipo }}</label>                                                         
+                            <label class="col-6">Años de antiguedad: {{ $anosantiguedad }}</label>                                                                                                              
                         </div>
-                     </div>                     
+                        <br>
+                     <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-dark">Certificado</button>
+                        </div>
+                     </div>
                   </div>
-               </form>        
+               </form>
             </div>
         </div>
     </body>

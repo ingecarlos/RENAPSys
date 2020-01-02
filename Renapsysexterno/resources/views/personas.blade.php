@@ -81,10 +81,23 @@
                             <label class="col-6" for="fdpi">Ingrese el número de DPI:</label>
                             <input type="text" class="form-control" id="dpi" placeholder="DPI" name="dpi">
                             <span class="text-danger">{{ $errors->first('dpi') }}</span>
-                        </div>     
+                        </div>  
+                        <br>
+                        <div class="col-sm-12">  
+                            <label class="col-12" for="fdpi">Selecciona un grupo:</label>        
+                            <select name="combogrupos">                                
+                                <option value="grupo1">Grupo 1</option>
+                                <option value="grupo2">Grupo 2</option>
+                                <option value="grupo3">Grupo 3</option>
+                                <option value="grupo4">Grupo 4</option>
+                                <option value="grupo5">Grupo 5</option>
+                                <option value="grupo6" selected>Grupo 6</option>
+                                <option value="grupo7">Grupo 7</option>
+                            </select>
+                        </div>   
                         <br>                                                
                      <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">                            
+                        <div class="col-sm-12">                            
                             <button type="submit" class="btn btn-dark">Consultar</button>
                         </div>
                      </div>                     
