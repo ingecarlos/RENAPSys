@@ -19,7 +19,8 @@ RUN rm /var/www/html/*
 
 ADD . /var/www/html/
 WORKDIR /var/www/html
-CMD composer install
+CMD composer install --no-scripts
+CMD php artisan optimize
 
 EXPOSE 80
 
