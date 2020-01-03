@@ -34,7 +34,7 @@ class DivorcioController extends Controller
             //return View::make('defuncionesInfo');
         }
         elseif($grupo=="grupo1")  {
-            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+            $this->host = 'http://35.184.41.20:10000/post/comunicacionesb/';
         }
         elseif($grupo=="grupo2")  {
             $this->host = 'http://35.239.54.7:10000/post/comunicacionesb/';
