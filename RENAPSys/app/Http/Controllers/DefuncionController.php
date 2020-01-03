@@ -27,28 +27,28 @@ class DefuncionController extends Controller
 
         $grupo = $request->input("combogrupos");            
         if($grupo=="grupo6"){
-            $this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+            $this->host = 'http://35.232.40.193';
             //var_dump($grupo);
             //print_r($grupo);
             //return View::make('defuncionesInfo');
         }
         elseif($grupo=="grupo1")  {
-            //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
+            $this->host = 'http://35.184.41.20';
         }
         elseif($grupo=="grupo2")  {
-            $this->host = 'http://35.239.54.7:10000/post/comunicacionesb/';
+            $this->host = 'http://35.239.54.7';
         }
         elseif($grupo=="grupo3")  {
-            $this->host = 'http://35.184.97.83:10000/post/comunicacionesb/';
+            $this->host = 'http://35.184.97.83';
         }
         elseif($grupo=="grupo4")  {
-            $this->host = 'http://35.193.113.191:10000/post/comunicacionesb/';
+            $this->host = 'http://35.193.113.191';
         }
         elseif($grupo=="grupo5")  {
             //$this->host = 'http://35.232.40.193:10000/post/comunicacionesb/';
         }
         elseif($grupo=="grupo7")  {
-            $this->host = 'http://35.211.247.121:10000/post/comunicacionesb/';
+            $this->host = 'http://35.211.247.121';
         }
         /*
         $response = $client->request('POST', $this->host.':9002/', [
@@ -65,9 +65,9 @@ class DefuncionController extends Controller
 
         
         //$response = $client->request('POST', $this->host.':9002/', [        
-            $response = $client->request('POST', $this->host, [
+            $response = $client->request('POST', 'http://35.232.40.193:10000/post/comunicacionesb', [
             'json' => [
-                'url' => 'http://35.232.40.193:9002/setDefuncion',
+                'url' => $this->host.':9002/setDefuncion',
                 'tipo' => 'POST',
                 'parametros' =>
                              array('dpi' => $request->input('dpi'),
